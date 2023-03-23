@@ -35,10 +35,6 @@ class SimpleMotor extends SubsystemBase {
 @TeleOp(name = "Simple Motor Test")
 public class SimpleMotorTest extends CommandOpMode {
 
-    GamepadEx operator;
-
-    Trigger power_motor_positive, power_motor_negative, stop_motor;
-
     @Override
     public void initialize() {
 
@@ -46,11 +42,11 @@ public class SimpleMotorTest extends CommandOpMode {
 
         SimpleMotor motor = new SimpleMotor(hardwareMap, "motor");
 
-        operator = new GamepadEx(gamepad1);
+        GamepadEx operator = new GamepadEx(gamepad1);
 
-        power_motor_positive = new Trigger(() -> operator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1);
-        power_motor_negative = new Trigger(() -> operator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1);
-        stop_motor = new Trigger(() -> operator.getButton(GamepadKeys.Button.Y));
+        Trigger power_motor_positive = new Trigger(() -> operator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1);
+        Trigger power_motor_negative = new Trigger(() -> operator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1);
+        Trigger stop_motor = new Trigger(() -> operator.getButton(GamepadKeys.Button.Y));
 
         // register subsystems
 
