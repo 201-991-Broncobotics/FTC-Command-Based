@@ -27,17 +27,17 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
     protected boolean fieldCentric = true;
 
     protected final double[] pose = new double[3];
-        // x, y, theta; for theta, 0 means straight ahead, positive angle means rotated clockwise in degrees
+    // x, y, theta; for theta, 0 means straight ahead, positive angle means rotated clockwise in degrees
 
     /** x and y in inches, angle in degrees clockwise */
     public Mecanum(HardwareMap map, Telemetry telemetry, double starting_x, double starting_y, double starting_angle) {
         this.telemetry = telemetry;
 
         motors = new MotorEx[] {
-            new MotorEx(map, wheel_names[0], Motor.GoBILDA.RPM_312),
-            new MotorEx(map, wheel_names[1], Motor.GoBILDA.RPM_312),
-            new MotorEx(map, wheel_names[2], Motor.GoBILDA.RPM_312),
-            new MotorEx(map, wheel_names[3], Motor.GoBILDA.RPM_312)
+                new MotorEx(map, wheel_names[0], Motor.GoBILDA.RPM_312),
+                new MotorEx(map, wheel_names[1], Motor.GoBILDA.RPM_312),
+                new MotorEx(map, wheel_names[2], Motor.GoBILDA.RPM_312),
+                new MotorEx(map, wheel_names[3], Motor.GoBILDA.RPM_312)
         };
 
         for (int i = 0; i < 4; i++) {
@@ -47,10 +47,10 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
         }
 
         encoders = new Motor.Encoder[] {
-            motors[0].encoder,
-            motors[1].encoder,
-            motors[2].encoder,
-            motors[3].encoder
+                motors[0].encoder,
+                motors[1].encoder,
+                motors[2].encoder,
+                motors[3].encoder
         };
 
         for (int i = 0; i < 4; i++) {
@@ -138,7 +138,7 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
 
     public double getPositionError() {
         return Math.sqrt(
-            (target_x - pose[0]) * (target_x - pose[0]) + (target_y - pose[1]) * (target_y - pose[1])
+                (target_x - pose[0]) * (target_x - pose[0]) + (target_y - pose[1]) * (target_y - pose[1])
         );
     }
 
@@ -151,10 +151,10 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
     public double[] getEncoderInches() {
         double wheel_diameter = 96 / 25.4; // in inches, roughly 3.7795275591
         return new double[] {
-            encoders[0].getRevolutions() * Math.PI * wheel_diameter,
-            encoders[1].getRevolutions() * Math.PI * wheel_diameter,
-            encoders[2].getRevolutions() * Math.PI * wheel_diameter,
-            encoders[3].getRevolutions() * Math.PI * wheel_diameter
+                encoders[0].getRevolutions() * Math.PI * wheel_diameter,
+                encoders[1].getRevolutions() * Math.PI * wheel_diameter,
+                encoders[2].getRevolutions() * Math.PI * wheel_diameter,
+                encoders[3].getRevolutions() * Math.PI * wheel_diameter
         };
     }
 
@@ -181,14 +181,14 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
 
         /* Position Correction */
 
-        if (distance_factor == 0) {
+        if (Math.abs(distance_factor) < 0.01) {
             if (System.currentTimeMillis() / 1000.0 - last_translation_time < position_calibration_time) {
                 target_x = pose[0];
                 target_y = pose[1];
             } else {
                 Translation2d position_error = new Translation2d(
-                    target_x - pose[0],
-                    target_y - pose[1]
+                        target_x - pose[0],
+                        target_y - pose[1]
                 );
                 double norm = getCorrection(position_error.getNorm(), position_p, position_e, min_position_correction_power, max_position_correction_power);
                 position_error = position_error.times(norm / position_error.getNorm());
@@ -204,7 +204,7 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
         /* Heading Correction */
 
         double current_heading = getAngle(); // positive --> clockwise
-        if (turning_factor == 0) {
+        if (Math.abs(turning_factor) < 0.01) {
             if (System.currentTimeMillis() / 1000.0 - last_time < calibration_time) {
                 target_heading = current_heading;
             } else {
@@ -272,7 +272,7 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
         relative_angle += turning_degrees * 0.5;
 
         double distance;
-        if (Math.abs(turning_degrees) < 0.0001) { // assume it's linear
+        if (Math.abs(turning_degrees) < 0.01) { // assume it's linear
 
             distance = raw_distance;
 

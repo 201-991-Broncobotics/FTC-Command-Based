@@ -44,8 +44,8 @@ public final class Constants {
                                position_tolerance = 1.5,
                                min_position_correction_power = 0.01,
                                max_position_correction_power = 0.8,
-                               position_p = 0.25, // full power for 4 inches away
-                               position_e = 1.2,
+                               position_p = 0.33, // full power for 4 inches away
+                               position_e = 1,
                                distance_weight = 1,
                                turning_weight = 1; // don't turn as much as we go forward
 
