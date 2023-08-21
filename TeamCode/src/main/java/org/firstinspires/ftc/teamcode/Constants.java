@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+
 import java.util.Arrays;
 
 public final class Constants {
@@ -51,6 +53,9 @@ public final class Constants {
 
     public static final boolean invert_imu = true, // We want the heading to increase clockwise
                                 brake = true;
+
+    public static final RevHubOrientationOnRobot.LogoFacingDirection logo_direction = RevHubOrientationOnRobot.LogoFacingDirection.UP;
+    public static final RevHubOrientationOnRobot.UsbFacingDirection usb_direction = RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
 
     /** Normalizes to between -180 and +180 degrees */
     public static double normalize_angle(double degrees) {

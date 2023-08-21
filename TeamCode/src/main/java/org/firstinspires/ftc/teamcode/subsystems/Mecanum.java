@@ -13,6 +13,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 import static org.firstinspires.ftc.teamcode.Constants.*;
+import org.firstinspires.ftc.teamcode.Variables;
 
 public class Mecanum extends SubsystemBase { // uses the control hub's IMU to keep a constant heading
     protected final Telemetry telemetry;
@@ -34,10 +35,10 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
         this.telemetry = telemetry;
 
         motors = new MotorEx[] {
-                new MotorEx(map, wheel_names[0], Motor.GoBILDA.RPM_312),
-                new MotorEx(map, wheel_names[1], Motor.GoBILDA.RPM_312),
-                new MotorEx(map, wheel_names[2], Motor.GoBILDA.RPM_312),
-                new MotorEx(map, wheel_names[3], Motor.GoBILDA.RPM_312)
+            new MotorEx(map, wheel_names[0], Motor.GoBILDA.RPM_312),
+            new MotorEx(map, wheel_names[1], Motor.GoBILDA.RPM_312),
+            new MotorEx(map, wheel_names[2], Motor.GoBILDA.RPM_312),
+            new MotorEx(map, wheel_names[3], Motor.GoBILDA.RPM_312)
         };
 
         for (int i = 0; i < 4; i++) {
@@ -47,10 +48,10 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
         }
 
         encoders = new Motor.Encoder[] {
-                motors[0].encoder,
-                motors[1].encoder,
-                motors[2].encoder,
-                motors[3].encoder
+            motors[0].encoder,
+            motors[1].encoder,
+            motors[2].encoder,
+            motors[3].encoder
         };
 
         for (int i = 0; i < 4; i++) {
@@ -58,13 +59,9 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
             encoders[i].reset();
         }
 
-
         imu = map.get(IMU.class, "imu");
 
-        imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.RIGHT // Directions of Control Hub
-        )));
+        imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(logo_direction, usb_direction)));
 
         resetPosition(starting_x, starting_y);
         resetIMU(starting_angle);
@@ -138,7 +135,7 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
 
     public double getPositionError() {
         return Math.sqrt(
-                (target_x - pose[0]) * (target_x - pose[0]) + (target_y - pose[1]) * (target_y - pose[1])
+            (target_x - pose[0]) * (target_x - pose[0]) + (target_y - pose[1]) * (target_y - pose[1])
         );
     }
 
@@ -151,10 +148,10 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
     public double[] getEncoderInches() {
         double wheel_diameter = 96 / 25.4; // in inches, roughly 3.7795275591
         return new double[] {
-                encoders[0].getRevolutions() * Math.PI * wheel_diameter,
-                encoders[1].getRevolutions() * Math.PI * wheel_diameter,
-                encoders[2].getRevolutions() * Math.PI * wheel_diameter,
-                encoders[3].getRevolutions() * Math.PI * wheel_diameter
+            encoders[0].getRevolutions() * Math.PI * wheel_diameter,
+            encoders[1].getRevolutions() * Math.PI * wheel_diameter,
+            encoders[2].getRevolutions() * Math.PI * wheel_diameter,
+            encoders[3].getRevolutions() * Math.PI * wheel_diameter
         };
     }
 
@@ -293,12 +290,17 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
     public void periodic() {
         update_odometry();
 
-        telemetry.addData("Current angle", round(getAngle(), 2));
-        telemetry.addData("Current angular error", round(getError(), 2));
+        if (Variables.teleOp) {
 
-        telemetry.addData("Odometry position (inches)", "(" + round(pose[0], 2) + ", " + round(pose[1], 2) + ")");
-        telemetry.addData("Odometry angle (degrees)", round(pose[2], 2));
+            // by the way, the program updates much faster than the telemetry updates :)
 
-        telemetry.addData("Drive mode", fieldCentric ? "Field Centric" : "Robot Centric");
+            telemetry.addData("Current angle", round(getAngle(), 2));
+            telemetry.addData("Current angular error", round(getError(), 2));
+
+            telemetry.addData("Odometry position (inches)", "(" + round(pose[0], 2) + ", " + round(pose[1], 2) + ")");
+            telemetry.addData("Odometry angle (degrees)", round(pose[2], 2));
+
+            telemetry.addData("Drive mode", fieldCentric ? "Field Centric" : "Robot Centric");
+        }
     }
 }
