@@ -27,10 +27,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.opmodes.teleop;
+package org.firstinspires.ftc.teamcode.opmodes.examples;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -40,9 +39,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 /**
- * {@link SensorIMUOrthogonal} shows how to use the new universal {@link IMU} interface. This
- * interface may be used with the BNO055 IMU or the BHI260 IMU. It assumes that an IMU is configured
- * on the robot with the name "imu".
+ * This program assumes that an IMU is configured on the robot with the name "imu".
  * <p>
  * The sample will display the current Yaw, Pitch and Roll of the robot.<br>
  * With the correct orientation parameters selected, pitch/roll/yaw should act as follows:

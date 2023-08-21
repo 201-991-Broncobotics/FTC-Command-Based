@@ -10,6 +10,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.defaultcommands.TeleOpDrive;
 import org.firstinspires.ftc.teamcode.commands.examplecommands.TriggerSequence;
 import org.firstinspires.ftc.teamcode.commands.examplecommands.TurnForever;
@@ -21,6 +22,10 @@ public class DriverPractice extends CommandOpMode {
 
     @Override
     public void initialize() {
+
+        // initialize variables
+
+        Variables.teleOp = true;
 
         // initialize hardware
 

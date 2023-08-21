@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.DriveAndTurn;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.Wait;
 import org.firstinspires.ftc.teamcode.subsystems.Mecanum;
@@ -17,6 +18,10 @@ public class DriveAuto extends CommandOpMode {
 
     @Override
     public void initialize() {
+
+        // initialize variables
+
+        Variables.teleOp = false;
 
         // Initialize Hardware
 
