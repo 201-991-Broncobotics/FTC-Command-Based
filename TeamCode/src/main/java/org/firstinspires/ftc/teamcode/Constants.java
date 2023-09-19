@@ -28,28 +28,32 @@ public final class Constants {
 
     /* Mecanum Constants */
 
-    public static final String[] wheel_names = new String[]{
+    public static final String[] wheel_names = new String[] {
         "rightFront",
         "rightBack",
         "leftBack",
         "leftFront"
     }; // ordered by right front, right back, left back, left front
 
+    public static final boolean[] invert_drive_motors = new boolean[] {
+        false, false, true, false
+    };
+
     public static final double strafe = 0.95, // ratio of strafe speed vs forward speed; should be less than one
-                               calibration_time = 0.5,
-                               yaw_tolerance = 2,
-                               min_yaw_correction_power = 0.02,
-                               max_yaw_correction_power = 1,
-                               yaw_p = 0.035,
-                               yaw_e = 1.5,
-                               position_calibration_time = 1,
-                               position_tolerance = 1.5,
-                               min_position_correction_power = 0.01,
-                               max_position_correction_power = 0.8,
-                               position_p = 0.33, // full power for 4 inches away
-                               position_e = 1,
-                               distance_weight = 1,
-                               turning_weight = 1; // don't turn as much as we go forward
+       calibration_time = 1,
+       yaw_tolerance = 2,
+       min_yaw_correction_power = 0.02,
+       max_yaw_correction_power = 1,
+       yaw_p = 0, // 0.035,
+       yaw_e = 1.5,
+       position_calibration_time = 1,
+       position_tolerance = 1.5,
+       min_position_correction_power = 0.01,
+       max_position_correction_power = 0.8,
+       position_p = 0, // full power for 4 inches away
+       position_e = 1,
+       distance_weight = 1,
+       turning_weight = 1; // don't turn as much as we go forward
 
     public static final boolean invert_imu = true, // We want the heading to increase clockwise
                                 brake = true;
@@ -84,7 +88,7 @@ public final class Constants {
     }
 
     /* Odometry Constants */
-    public static final String leftEncoderMotor = "rightFront",
+    public static final String leftEncoderMotor = "rightFront", // the motor ports the encoder wires are plugged into
                                rightEncoderMotor = "rightBack",
                                horizontalEncoderMotor = "leftBack";
 
