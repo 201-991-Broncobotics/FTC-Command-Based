@@ -230,7 +230,7 @@ public class Mecanum extends SubsystemBase { // uses the control hub's IMU to ke
         }
         double maximum = Math.max(1, Math.max(Math.max(Math.abs(power[0]), Math.abs(power[1])), Math.max(Math.abs(power[2]), Math.abs(power[3]))));
         for (int i = 0; i < 4; i++) {
-            motors[i].set(power[i] / maximum * org.firstinspires.ftc.teamcode.Variables.max_speed);
+            motors[i].set(power[i] / maximum * org.firstinspires.ftc.teamcode.Variables.max_speed * (invert_drive_motors[i] ? -1 : 1));
         }
     }
     public void update_odometry() {
