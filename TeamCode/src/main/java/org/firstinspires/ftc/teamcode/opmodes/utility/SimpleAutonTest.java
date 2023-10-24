@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.examples;
+package org.firstinspires.ftc.teamcode.opmodes.utility;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.Wait;
 
-@Autonomous(name = "Simple Auto Test")
-public class SimpleAutoTest extends CommandOpMode {
+@Autonomous(name = "Simple Autom Test")
+public class SimpleAutonTest extends CommandOpMode {
 
     @Override
     public void initialize() {

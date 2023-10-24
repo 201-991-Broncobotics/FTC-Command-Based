@@ -28,7 +28,6 @@ public class PIECalculator {
         this.positionSup = positionSup;
 
         reset();
-
     }
 
     public PIECalculator(double kP, double kE, double minPosition, double maxPosition,
@@ -69,14 +68,15 @@ public class PIECalculator {
         integral = 0;
     }
 
-    public double getCorrection() {
+    private double getCorrection() {
         double delta_time = System.currentTimeMillis() / 1000.0 - previous_time;
 
         double error = target_position - positionSup.getAsDouble();
 
         double p = error * kP;
+
         if (Math.abs(p) < maxPower) {
-            p *= Math.pow(Math.abs(p) / maxPower, kE - 1);
+            if (p != 0) p *= Math.pow(Math.abs(p) / maxPower, kE - 1);
             integral += error * delta_time;
         } else {
             integral = 0;

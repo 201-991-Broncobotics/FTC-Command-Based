@@ -22,8 +22,10 @@ public class ServoEx {
         servo = map.get(Servo.class, name);
         servo.setDirection(Servo.Direction.FORWARD);
 
-        this.zero = zero; // whatever the servo reads at the "zero" position; will be between 0 and 1
+        this.zero = zero; // whatever the servo reads at the "zero" angle; will be between 0 and 1
             // raw reading, regardless of inversions and whatnot
+            // for example, vertical might be at servo position 0.3, and we want vertical to be
+                // considered 0; this variable should be set to 0.3 in this case
         this.minAngle = minAngle; // whatever angle we want the minimum to be (not necessarily physical minimum)
         this.maxAngle = maxAngle; // assuming the zero position is at 0 degrees
         this.max_acceleration = max_acceleration; // in degrees
@@ -32,7 +34,7 @@ public class ServoEx {
 
         this.inverted = inverted ? -1 : 1;
 
-        target_value = starting_angle;
+        target_value = starting_angle; // what we want to start at, not necessarily what we actually start at
 
         positionSup = () -> ((servo.getPosition() - zero) * range) * this.inverted;
     }
