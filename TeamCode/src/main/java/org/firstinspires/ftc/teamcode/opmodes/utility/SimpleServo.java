@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.opmodes.examples;
+package org.firstinspires.ftc.teamcode.opmodes.utility;
 
-import static org.firstinspires.ftc.teamcode.Constants.round;
+import static org.firstinspires.ftc.teamcode.subsystems.subsubsystems.Functions.round;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -40,10 +40,10 @@ class SimpleServo extends SubsystemBase {
 
     @Override
     public void periodic() {
-        servo.update();
+        servo.update(); // THIS IS CRITICAL TO CALL DURING PERIODIC() !!!
         if (Variables.teleOp) {
-            telem.addLine("servo has current position " + round(servo.getRawPosition(), 2) + ". ");
             telem.addLine("servo has current speed " + round(servo.get(), 0) + ". ");
+            telem.addLine("servo has current position " + round(servo.getRawPosition(), 2) + ". ");
         }
     }
 }

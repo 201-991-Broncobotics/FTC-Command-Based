@@ -2,18 +2,16 @@ package org.firstinspires.ftc.teamcode.commands.examplecommands;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
-import org.firstinspires.ftc.teamcode.subsystems.Mecanum;
-
-import java.util.function.BooleanSupplier;
+import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 
 public class TurnForever extends CommandBase {
 
-    private final Mecanum mecanum;
+    private final DriveSubsystemBase driveTrain;
     private static boolean isRunning = false;
 
-    public TurnForever(Mecanum mecanum) {
-        this.mecanum = mecanum;
-        addRequirements(mecanum);
+    public TurnForever(DriveSubsystemBase driveTrain) {
+        this.driveTrain = driveTrain;
+        addRequirements(driveTrain);
     }
 
     @Override
@@ -23,7 +21,7 @@ public class TurnForever extends CommandBase {
 
     @Override
     public void execute() {
-        mecanum.drive(0, 0, 0.5, false);
+        driveTrain.drive(0, 0, 0.5, 1);
     }
 
     @Override

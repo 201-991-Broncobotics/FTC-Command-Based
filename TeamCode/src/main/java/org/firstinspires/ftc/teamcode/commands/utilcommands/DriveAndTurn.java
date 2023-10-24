@@ -1,20 +1,21 @@
 package org.firstinspires.ftc.teamcode.commands.utilcommands;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.arcrobotics.ftclib.geometry.Translation2d;
 
-import org.firstinspires.ftc.teamcode.subsystems.Mecanum;
-
-import static org.firstinspires.ftc.teamcode.Constants.*;
+import org.firstinspires.ftc.teamcode.subsystems.Mecanum_Old;
+import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 
 public class DriveAndTurn extends CommandBase {
 
-    private final Mecanum mecanum;
+    private final DriveSubsystemBase driveTrain;
     private final double target_x, target_y, target_angle;
 
-    public DriveAndTurn(Mecanum mecanum, double target_x, double target_y, double target_angle) {
-        this.mecanum = mecanum;
-        addRequirements(mecanum);
+    private final double yaw_tolerance = 2, position_tolerance = 1.5; // degrees and inches, respectively
+    private final double slowdown = 1.5; // go at 66% speed
+
+    public DriveAndTurn(DriveSubsystemBase driveTrain, double target_x, double target_y, double target_angle) {
+        this.driveTrain = driveTrain;
+        addRequirements(driveTrain);
 
         this.target_x = target_x;
         this.target_y = target_y;
@@ -23,26 +24,26 @@ public class DriveAndTurn extends CommandBase {
 
     @Override
     public void initialize() {
-        mecanum.setTargetHeading(target_angle);
-        mecanum.setTargetPosition(target_x, target_y);
+        driveTrain.setTargetHeading(target_angle);
+        driveTrain.setTargetPosition(target_x, target_y);
     }
 
     @Override
     public void execute() {
-        mecanum.drive(0, 0, 0, true);
+        driveTrain.drive(0, 0, 0, true, slowdown);
     }
 
     @Override
     public void end(boolean interrupted) {
         if (interrupted) {
-            mecanum.resetOdometry();
+            driveTrain.resetTargets();
         }
-        mecanum.brake();
+        driveTrain.brake();
     }
 
     @Override
     public boolean isFinished() {
-        return (Math.abs(mecanum.getError()) < yaw_tolerance) && (Math.abs(mecanum.getPositionError()) < position_tolerance);
+        return (Math.abs(driveTrain.getHeadingError()) < yaw_tolerance) && (Math.abs(driveTrain.getPositionError()) < position_tolerance);
     }
 
 }

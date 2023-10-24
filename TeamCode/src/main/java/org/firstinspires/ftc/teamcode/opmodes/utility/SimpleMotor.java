@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.examples;
+package org.firstinspires.ftc.teamcode.opmodes.utility;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
@@ -24,6 +24,10 @@ class SimpleMotor extends SubsystemBase {
         return motor.get();
     }
 
+    public double getPosition() {
+        return motor.getCurrentPosition();
+    }
+
     public void powerForward() {
         motor.set(0.5);
     }
@@ -40,6 +44,7 @@ class SimpleMotor extends SubsystemBase {
     public void periodic() {
         if (Variables.teleOp) {
             telem.addLine("\"" + name + "\" motor has current speed " + getPower() + ". ");
+            telem.addLine("\"" + name + "\" motor has current position " + getPosition() + ". ");
         }
     }
 }

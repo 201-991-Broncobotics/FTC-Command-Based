@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleop;
+package org.firstinspires.ftc.teamcode.opmodes.utility;
 
-import static org.firstinspires.ftc.teamcode.Constants.*;
+import static org.firstinspires.ftc.teamcode.subsystems.subsubsystems.Functions.*;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -8,17 +8,18 @@ import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.defaultcommands.TeleOpDrive;
-import org.firstinspires.ftc.teamcode.commands.examplecommands.TriggerSequence;
+import org.firstinspires.ftc.teamcode.commands.utilcommands.TriggerSequence;
 import org.firstinspires.ftc.teamcode.commands.examplecommands.TurnForever;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.DriveAndTurn;
 import org.firstinspires.ftc.teamcode.subsystems.Mecanum;
 
-@TeleOp(name = "Driver Practice")
-public class DriverPractice extends CommandOpMode {
+@TeleOp(name = "Advanced TeleOp Test")
+public class AdvancedTeleOpTest extends CommandOpMode {
 
     @Override
     public void initialize() {
@@ -29,7 +30,14 @@ public class DriverPractice extends CommandOpMode {
 
         // initialize hardware
 
-        Mecanum mecanum = new Mecanum(hardwareMap, telemetry, 0, 0, 0); // push straight forward to tune strafing
+        Mecanum mecanum = new Mecanum(hardwareMap, telemetry, new String[] {
+                "rf", "rb", "lb", "lf"
+            }, new boolean[] {
+                false, false, false, false
+            }, 0, 0, 0, false,
+            RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
+            RevHubOrientationOnRobot.UsbFacingDirection.UP
+        ); // push straight forward to tune strafing
 
         GamepadEx driver = new GamepadEx(gamepad1), // start + a
                   operator = new GamepadEx(gamepad2); // start + b
@@ -85,15 +93,13 @@ public class DriverPractice extends CommandOpMode {
 
         mecanum.setDefaultCommand(new TeleOpDrive(
             mecanum,
-            driver::getLeftX,
-            driver::getLeftY, // FTCLib reverses the direction for left stick y, but not right stick y so we do a method reference for right stick y
-            driver::getRightX,
-            () -> 1 - 0.66 * driver.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)
+            driver,
+            1, 1, true
         ));
 
         // non default commands
 
-        reset_gyro.whenActive(new InstantCommand(() -> mecanum.resetIMU(0)));
+        reset_gyro.whenActive(new InstantCommand(() -> mecanum.resetHeading(0)));
 
         switch_mode.whenActive(new InstantCommand(mecanum::toggleDriveMode));
 
