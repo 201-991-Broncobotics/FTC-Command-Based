@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.subsystems.subsubsystems;
 
 import static org.firstinspires.ftc.teamcode.subsystems.subsubsystems.Functions.*;
-import static org.firstinspires.ftc.teamcode.Variables.*;
 
 import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.teamcode.Variables;
 
 public class SwerveModule {
 
@@ -17,13 +18,13 @@ public class SwerveModule {
 
     private final double[] turning_vector;
 
-    private final double min_power = 0.1, max_power = 0.95;
+    private final double min_power = 0.1, max_power = 0.95, min_angular_error = 60;
 
     public SwerveModule(HardwareMap map, String motor_name, String servo_name, double x, double y) {
-        this(map, motor_name, servo_name, true, x, y, true);
+        this(map, motor_name, servo_name, x, y, true);
     }
 
-    public SwerveModule(HardwareMap map, String motor_name, String servo_name, boolean reset, double x, double y, boolean brake) {
+    public SwerveModule(HardwareMap map, String motor_name, String servo_name, double x, double y, boolean brake) {
             // x and y just have to be ratios, they don't have to be in any specific units
             // distance of wheel to center of rotation; positive x is right, positive y is forward
         driving_motor = new MotorEx(map, motor_name);
@@ -34,7 +35,9 @@ public class SwerveModule {
         // driving_motor.setRunMode(Motor.RunMode.RawPower);
 
         angle_motor.setInverted(false); // we might want to put something in variables to carry information to teleop
-        if (teleOp) driving_motor.stopAndResetEncoder();
+        if (Variables.off) {
+            driving_motor.stopAndResetEncoder();
+        }
 
         pieCalculator = new PIECalculator(
             0.02, 1, 0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY,
@@ -87,6 +90,8 @@ public class SwerveModule {
         pieCalculator.setTarget(target_angle);
 
         angle_motor.set(pieCalculator.getPower(0));
+
+        if (Math.abs(normalize_angle(target_angle - getModuleAngle())) > min_angular_error) magnitude = 0;
 
         driving_motor.set(magnitude);
     }

@@ -32,13 +32,13 @@ public class TeleOpDriveTest extends CommandOpMode {
         DriveSubsystemBase driveTrain;
 
         if (swerve_drive) {
-            driveTrain = new Swerve(hardwareMap, telemetry, new String[]{ // single swerve module lmao
+            driveTrain = new Swerve(hardwareMap, telemetry, new String[] { // single swerve module lmao
                     "rfm", "rbm", "lbm", "lfm"
-            }, new String[]{
+            }, new String[] {
                     "rfs", "rbs", "lbs", "lfs"
-            }, 12.913386, 9.133858, false,
-                    RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                    RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+            }, 12.913386, 9.133858, true,
+                    RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
+                    RevHubOrientationOnRobot.UsbFacingDirection.DOWN
             );
         } else {
             driveTrain = new Mecanum(hardwareMap, telemetry, new String[]{
@@ -46,10 +46,12 @@ public class TeleOpDriveTest extends CommandOpMode {
             }, new boolean[]{
                     false, false, false, false
             }, 0, 0, 0, false,
-                    RevHubOrientationOnRobot.LogoFacingDirection.UP, //FORWARD,
-                    RevHubOrientationOnRobot.UsbFacingDirection.FORWARD //UP
+                    RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                    RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
             );
         }
+
+        Variables.off = false;
 
         GamepadEx driver = new GamepadEx(gamepad1);
 
