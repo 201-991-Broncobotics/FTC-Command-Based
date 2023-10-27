@@ -20,9 +20,10 @@ public class Swerve extends DriveSubsystemBase {
         super(
             map, telemetry, invert_imu, logo_direction, usb_direction, 0, 0, 0,
             true, 0.5,0.1, 0.5,
-            0.1, 1.05, 0.5, 0,
+            0.025, 1.05, 0.5, 0,
             0, 0, 1, 0.95
         );
+
         modules = new SwerveModule[] {
             new SwerveModule(map, motor_names[0], servo_names[0], width, length),
             new SwerveModule(map, motor_names[1], servo_names[1], width, -length),
@@ -53,7 +54,7 @@ public class Swerve extends DriveSubsystemBase {
 
     @Override
     public void power_motors(double offset, double distance_factor, double turning_factor) {
-        for (int i = 0; i < 1; i++) { // this must be replaced with 4 :)
+        for (int i = 0; i < 4; i++) { // this must be replaced with 4 :)
             modules[i].setModule(
                 distance_factor * Math.sin(offset * Math.PI / 180.0),
                 distance_factor * Math.cos(offset * Math.PI / 180.0),
