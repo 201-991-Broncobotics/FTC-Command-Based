@@ -3,7 +3,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "Just the Arm :skull:")
+@TeleOp(name = "Just the Arm")
 public class ArmTest extends OpMode {
     DcMotor motor5;
     DcMotor motor6;
@@ -20,7 +20,7 @@ public class ArmTest extends OpMode {
     public void loop() {
         float leftInput = gamepad1.left_trigger;
         float rightInput = gamepad1.right_trigger;
-        if (leftInput > 0){
+        if (leftInput > 0) {
             motor5.setPower(0.33);
             motor6.setPower(0.33);
         }
