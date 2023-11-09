@@ -5,34 +5,32 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 @TeleOp
-public class BoxServo extends OpMode {
-    public CRServo servo;
+public class Drone extends OpMode {
+    public CRServo servo2;
     @Override
     public void init() {
-        servo = hardwareMap.get(CRServo.class, "box2");
+        servo2 = hardwareMap.get(CRServo.class, "drone");
     }
     @Override
     public void loop() {
-        if (gamepad1.x) {
+        if (gamepad1.b) {
 
-            servo.setPower(1);
-
+            servo2.setPower(-.25);
             try {
-                Thread.sleep(1100);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
-                telemetry.addData("Oops!" , " Took Too Long!");
+               telemetry.addData("Oops " , "Took too long!");
             }
-
-            servo.setPower(-1);
-
+            servo2.setPower(.25);
             try {
-                Thread.sleep(1100);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
-                telemetry.addData("Oops!" , " Took Too Long");
+                telemetry.addData("Oops " , "Took too long!");
             }
+            servo2.setPower(0);
 
         }
-        servo.setPower(0);
+        servo2.setPower(0);
     }
 
 }

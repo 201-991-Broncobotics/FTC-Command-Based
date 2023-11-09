@@ -3,8 +3,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "Just the Arm")
-public class ArmTest extends OpMode {
+@TeleOp
+public class Arm extends OpMode {
     DcMotor motor5;
     DcMotor motor6;
 
