@@ -32,10 +32,10 @@ public class SwerveModule {
 
         driving_motor.setInverted(false);
         driving_motor.setZeroPowerBehavior(brake ? Motor.ZeroPowerBehavior.BRAKE : Motor.ZeroPowerBehavior.FLOAT);
-        // driving_motor.setRunMode(Motor.RunMode.RawPower);
+        driving_motor.setRunMode(Motor.RunMode.RawPower);
 
         angle_motor.setInverted(false); // we might want to put something in variables to carry information to teleop
-        if (Variables.off) {
+        if (!Variables.swerve_reset) {
             driving_motor.stopAndResetEncoder();
         }
 
