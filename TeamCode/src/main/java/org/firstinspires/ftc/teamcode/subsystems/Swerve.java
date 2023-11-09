@@ -4,6 +4,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.SwerveModule;
 
@@ -30,7 +31,8 @@ public class Swerve extends DriveSubsystemBase {
             new SwerveModule(map, motor_names[2], servo_names[2], -width, -length),
             new SwerveModule(map, motor_names[3], servo_names[3], -width, length)
         };
-        // length is 9.133858; width is 12.913386
+
+        Variables.swerve_reset = true;
     } // ordered by right front, right back, left back, left front
       // MAKE SURE all the wheels are pointing with the gear facing the direction considered as "right"
 

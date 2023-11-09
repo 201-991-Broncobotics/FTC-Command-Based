@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.Wait;
 
-@Autonomous(name = "Simple Autom Test")
+@Autonomous(name = "Simple Auton Test")
 public class SimpleAutonTest extends CommandOpMode {
 
     @Override

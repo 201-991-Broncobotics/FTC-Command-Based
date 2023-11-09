@@ -51,8 +51,6 @@ public class TeleOpDriveTest extends CommandOpMode {
             );
         }
 
-        Variables.off = false;
-
         GamepadEx driver = new GamepadEx(gamepad1);
 
         Trigger switch_mode = new Trigger(() -> driver.getButton(GamepadKeys.Button.Y));
