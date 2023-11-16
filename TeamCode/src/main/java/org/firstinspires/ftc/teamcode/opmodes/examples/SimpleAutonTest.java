@@ -1,13 +1,15 @@
-package org.firstinspires.ftc.teamcode.opmodes.utility;
+package org.firstinspires.ftc.teamcode.opmodes.examples;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.Wait;
 
+@Disabled
 @Autonomous(name = "Simple Auton Test")
 public class SimpleAutonTest extends CommandOpMode {
 
