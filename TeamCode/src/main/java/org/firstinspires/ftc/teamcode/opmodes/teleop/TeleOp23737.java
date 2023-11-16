@@ -6,17 +6,19 @@ import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.defaultcommands.TeleOpDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Mecanum;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 
-@TeleOp(name = "TeleOp Drive Test")
-public class TeleOpDriveTest extends CommandOpMode {
+@TeleOp(name = "TeleOp 23737")
+public class TeleOp23737 extends CommandOpMode {
 
     @Override
     public void initialize() {
@@ -27,29 +29,18 @@ public class TeleOpDriveTest extends CommandOpMode {
 
         // initialize hardware
 
-        boolean swerve_drive = true; // make false for mecanum
-
-        DriveSubsystemBase driveTrain;
-
-        if (swerve_drive) {
-            driveTrain = new Swerve(hardwareMap, telemetry, new String[] { // single swerve module lmao
-                    "rfm", "rbm", "lbm", "lfm"
+        DriveSubsystemBase driveTrain = new Swerve(hardwareMap, telemetry,
+            new String[] { // single swerve module lmao
+                "rfm", "rbm", "lbm", "lfm"
             }, new String[] {
-                    "rfs", "rbs", "lbs", "lfs"
+                "rfs", "rbs", "lbs", "lfs"
             }, 12.913386, 9.133858, true,
-                    RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                    RevHubOrientationOnRobot.UsbFacingDirection.DOWN
-            );
-        } else {
-            driveTrain = new Mecanum(hardwareMap, telemetry, new String[]{
-                    "rf", "rb", "lb", "lf"
-            }, new boolean[]{
-                    false, false, false, false
-            }, 0, 0, 0, false,
-                    RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                    RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
-            );
-        }
+            RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
+            RevHubOrientationOnRobot.UsbFacingDirection.UP,
+            "encoder"
+        );
+
+        Rev2mDistanceSensor dsensor = hardwareMap.get(Rev2mDistanceSensor.class, "distance_sensor");
 
         GamepadEx driver = new GamepadEx(gamepad1);
 

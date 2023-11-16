@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.utility;
+package org.firstinspires.ftc.teamcode.opmodes.examples;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
@@ -8,7 +8,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Variables;
 
-class SimpleMotor extends SubsystemBase {
+public class SimpleMotor extends SubsystemBase { // fix dis later
+
     private final MotorEx motor;
     private final Telemetry telem;
     private final String name;
@@ -35,6 +36,8 @@ class SimpleMotor extends SubsystemBase {
     public void powerBackward() {
         motor.set(-0.5);
     }
+
+    public void set(double speed) { motor.set(speed); }
 
     public void stop() {
         motor.set(0);

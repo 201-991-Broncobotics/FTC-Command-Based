@@ -39,6 +39,8 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
         position_e,
         maximum_motor_power; // don't turn as much as we go forward
 
+    private static boolean reset_imu = true;
+
     /** x and y in inches, angle in degrees clockwise */
     public DriveSubsystemBase(HardwareMap map, Telemetry telemetry, boolean invert_imu,
         RevHubOrientationOnRobot.LogoFacingDirection logo_direction,
@@ -62,7 +64,10 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
         };
 
         resetPosition(starting_x, starting_y);
-        resetHeading(starting_angle);
+
+        if (reset_imu) {
+            resetHeading(starting_angle);
+        }
 
         this.fieldCentric = fieldCentric;
 
@@ -77,6 +82,8 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
         this.position_p = position_p;
         this.position_e = position_e;
         this.maximum_motor_power = maximum_motor_power;
+
+        reset_imu = false;
     }
 
     public final double getHeading() {
@@ -169,6 +176,7 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
 
         strafe_factor /= damping;
         forward_factor /= damping;
+        turning_factor /= damping;
 
         /* Calculations */
 
@@ -204,7 +212,7 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
             if (System.currentTimeMillis() / 1000.0 - last_time < heading_calibration_time) {
                 target_heading = current_heading;
             } else {
-                turning_factor = getCorrection(getHeadingError(), heading_p, heading_e, min_heading_correction_power, max_heading_correction_power);
+                turning_factor = getCorrection(getHeadingError(), heading_p, heading_e, min_heading_correction_power, max_heading_correction_power) / damping;
             }
         } else {
             target_heading = current_heading;

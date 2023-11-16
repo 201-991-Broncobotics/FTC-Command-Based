@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.utility;
+package org.firstinspires.ftc.teamcode.opmodes.examples;
 
 import static org.firstinspires.ftc.teamcode.subsystems.subsubsystems.Functions.*;
 
@@ -8,10 +8,12 @@ import com.arcrobotics.ftclib.command.PerpetualCommand;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Variables;
 
+@Disabled
 @TeleOp(name = "Simple Servo Calibration")
 public class SimpleServoCalibration extends CommandOpMode {
 

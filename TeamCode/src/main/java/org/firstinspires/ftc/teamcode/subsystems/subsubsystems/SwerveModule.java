@@ -7,8 +7,6 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Variables;
-
 public class SwerveModule {
 
     private final MotorEx driving_motor;
@@ -18,13 +16,13 @@ public class SwerveModule {
 
     private final double[] turning_vector;
 
-    private final double min_power = 0.1, max_power = 0.95, min_angular_error = 60;
+    private final double min_power = 0.1, max_power = 0.95, max_angular_error = 60;
 
-    public SwerveModule(HardwareMap map, String motor_name, String servo_name, double x, double y) {
-        this(map, motor_name, servo_name, x, y, true);
+    public SwerveModule(HardwareMap map, String motor_name, String servo_name, double x, double y, boolean reset) {
+        this(map, motor_name, servo_name, x, y, reset, true);
     }
 
-    public SwerveModule(HardwareMap map, String motor_name, String servo_name, double x, double y, boolean brake) {
+    public SwerveModule(HardwareMap map, String motor_name, String servo_name, double x, double y, boolean reset, boolean brake) {
             // x and y just have to be ratios, they don't have to be in any specific units
             // distance of wheel to center of rotation; positive x is right, positive y is forward
         driving_motor = new MotorEx(map, motor_name);
@@ -35,13 +33,13 @@ public class SwerveModule {
         driving_motor.setRunMode(Motor.RunMode.RawPower);
 
         angle_motor.setInverted(false); // we might want to put something in variables to carry information to teleop
-        if (!Variables.swerve_reset) {
+        if (reset) {
             driving_motor.stopAndResetEncoder();
         }
 
         pieCalculator = new PIECalculator(
-            0.02, 1, 0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY,
-            0.05, 0.95, 10, 0.25, 10, () -> driving_motor.getCurrentPosition() * 45.0 / 1024 // 4096 ticks per revolution
+            0.02, 1.2, 0.001, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY,
+            0.05, 0.95, 10, 0.25, 5, () -> driving_motor.getCurrentPosition() * 45.0 / 1024 // 8192 ticks per revolution
         );
         pieCalculator.disable_limiting();
 
@@ -63,19 +61,21 @@ public class SwerveModule {
         );
     }
 
-    public void setModule(double strafe, double forward, double turn) {
-        setModule(
+    public boolean setModule(double strafe, double forward, double turn) {
+        return setModule(
             (strafe + turn * turning_vector[0]),
             (forward + turn * turning_vector[1])
         );
     }
 
-    public void setModule(double x, double y) {
+    public boolean setModule(double x, double y) {
         double magnitude = Math.sqrt(x * x + y * y);
         if (magnitude < min_power) {
             angle_motor.set(0);
             driving_motor.set(0);
-            return; // whatever we want the minimum magnitude to be
+            return false; // whatever we want the minimum magnitude to be
+        } else if (magnitude > max_power) {
+            magnitude = max_power;
         }
 
         double target_angle = vectorToAngle(x, y);
@@ -91,9 +91,28 @@ public class SwerveModule {
 
         angle_motor.set(pieCalculator.getPower(0));
 
-        if (Math.abs(normalize_angle(target_angle - getModuleAngle())) > min_angular_error) magnitude = 0;
-
         driving_motor.set(magnitude);
+
+        return Math.abs(normalize_angle(target_angle - getModuleAngle())) > max_angular_error;
+    }
+
+    public void stopDriving() {
+        driving_motor.set(0);
+    }
+
+    public void setModuleAngle(double target_angle) {
+
+        if (Math.abs(normalize_angle(target_angle - getModuleAngle())) > 90) {
+            target_angle += 180 * (target_angle > 0 ? -1 : 1);
+        }
+
+        target_angle = getModuleAngle() - normalize_angle(getModuleAngle() - target_angle);
+
+        pieCalculator.setTarget(target_angle);
+
+        angle_motor.set(pieCalculator.getPower(0));
+
+        driving_motor.set(0);
     }
 
     public double getTargetAngle() {

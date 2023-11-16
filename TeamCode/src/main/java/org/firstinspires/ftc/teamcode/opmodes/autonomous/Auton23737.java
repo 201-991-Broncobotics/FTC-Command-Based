@@ -11,12 +11,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.DriveAndTurn;
+import org.firstinspires.ftc.teamcode.commands.utilcommands.SwerveDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.Wait;
-import org.firstinspires.ftc.teamcode.subsystems.Mecanum;
-import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
+import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 
-@Autonomous(name = "Auton Drive Test")
-public class AutonDriveTest extends CommandOpMode {
+@Autonomous(name = "Auton 23737")
+public class Auton23737 extends CommandOpMode {
 
     @Override
     public void initialize() {
@@ -27,14 +27,16 @@ public class AutonDriveTest extends CommandOpMode {
 
         // Initialize Hardware
 
-        DriveSubsystemBase driveTrain = new Mecanum(hardwareMap, telemetry, new String[] {
-                "rf", "rb", "lb", "lf"
-        }, new boolean[] {
-                false, false, false, false
-        }, 0, 0, 0, false,
+        Swerve driveTrain = new Swerve(hardwareMap, telemetry,
+                new String[] { // single swerve module lmao
+                        "rfm", "rbm", "lbm", "lfm"
+                }, new String[] {
+                "rfs", "rbs", "lbs", "lfs"
+        }, 12.913386, 9.133858, true,
                 RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                RevHubOrientationOnRobot.UsbFacingDirection.UP
-        ); // push straight forward to tune strafing
+                RevHubOrientationOnRobot.UsbFacingDirection.UP,
+                "encoder"
+        );
 
         Trigger stop = new Trigger(() -> driveTrain.getOdometry()[1] > 5); // I don't recommend triggers in autonomous but you can do them
 
@@ -52,7 +54,7 @@ public class AutonDriveTest extends CommandOpMode {
                     telemetry.addLine("Started moving forward and turning right");
                     telemetry.update();
                 }),
-                new DriveAndTurn(driveTrain, 0, 20, 90),
+                new SwerveDriveCommand(driveTrain, 10, 10, 90),
                 new InstantCommand(() -> {
                     telemetry.addLine("Robot stopped");
                     telemetry.update();
@@ -65,7 +67,7 @@ public class AutonDriveTest extends CommandOpMode {
                     telemetry.addLine("Returning to origin");
                     telemetry.update();
                 }),
-                new DriveAndTurn(driveTrain, 0, 0, 0),
+                new DriveAndTurn(driveTrain, -10, -10, 0),
                 new ParallelDeadlineGroup(
                     new Wait(0.25),
                     new PerpetualCommand(new InstantCommand(() -> driveTrain.drive(0, 0, 0, false, 1)))

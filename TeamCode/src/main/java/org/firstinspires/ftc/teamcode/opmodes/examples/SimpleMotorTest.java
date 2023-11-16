@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.utility;
+package org.firstinspires.ftc.teamcode.opmodes.examples;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
@@ -7,10 +7,12 @@ import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Variables;
 
+@Disabled
 @TeleOp(name = "Simple Motor Test")
 public class SimpleMotorTest extends CommandOpMode {
 
