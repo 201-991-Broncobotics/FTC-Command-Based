@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes.teleop;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.RunCommand;
+import com.arcrobotics.ftclib.command.Subsystem;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -52,8 +53,9 @@ public class TeleOp23737 extends CommandOpMode {
         Trigger down = new Trigger(() -> driver.getButton(GamepadKeys.Button.DPAD_DOWN));
         Trigger left = new Trigger(() -> driver.getButton(GamepadKeys.Button.DPAD_LEFT));
         Trigger right = new Trigger(() -> driver.getButton(GamepadKeys.Button.DPAD_RIGHT));
+        // register subsystems. How - Mael
 
-        // register subsystems
+
 
         register(driveTrain);
 

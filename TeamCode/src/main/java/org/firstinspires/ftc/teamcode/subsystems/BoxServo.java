@@ -1,36 +1,38 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleop;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 @TeleOp
-public class Drone extends OpMode {
-    public CRServo servo2;
+public class BoxServo extends OpMode {
+    public CRServo servo;
     @Override
     public void init() {
-        servo2 = hardwareMap.get(CRServo.class, "drone");
+        servo = hardwareMap.get(CRServo.class, "box2");
     }
     @Override
     public void loop() {
-        if (gamepad1.b) {
+        if (gamepad2.a) {
 
-            servo2.setPower(-.25);
+            servo.setPower(1);
+
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-               telemetry.addData("Oops " , "Took too long!");
+                telemetry.addData("Oops!" , " Took Too Long!");
             }
-            servo2.setPower(.25);
+
+            servo.setPower(-1);
+
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                telemetry.addData("Oops " , "Took too long!");
+                telemetry.addData("Oops!" , " Took Too Long");
             }
-            servo2.setPower(0);
 
         }
-        servo2.setPower(0);
+        servo.setPower(0);
     }
 
 }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleop;
+package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -18,13 +18,13 @@ public class Intake extends OpMode {
 
     @Override
     public void loop() {
-        boolean leftIntake = gamepad1.left_bumper;
-        boolean rightIntake = gamepad1.right_bumper;
-        if (leftIntake) {
+        float leftIntake = gamepad2.left_trigger;
+        float rightIntake = gamepad2.right_trigger;
+        if (leftIntake > 0) {
             motor7.setPower(-1);
             motor8.setPower(-1);
         }
-        if (rightIntake) {
+        if (rightIntake > 0) {
             motor7.setPower(1);
             motor8.setPower(1);
         }
