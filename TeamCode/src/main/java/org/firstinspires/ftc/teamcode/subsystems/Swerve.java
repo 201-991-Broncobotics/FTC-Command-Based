@@ -24,35 +24,35 @@ public class Swerve extends DriveSubsystemBase {
                   RevHubOrientationOnRobot.UsbFacingDirection usb_direction
     ) {
         this(
-            map, telemetry, motor_names, servo_names, width, length, invert_imu, logo_direction,
-            usb_direction, motor_names[0]
+                map, telemetry, motor_names, servo_names, width, length, invert_imu, logo_direction,
+                usb_direction, motor_names[0]
         );
     }
 
     public Swerve(HardwareMap map, Telemetry telemetry, String[] motor_names, String[] servo_names,
-          double width, double length, boolean invert_imu,
-          RevHubOrientationOnRobot.LogoFacingDirection logo_direction,
-          RevHubOrientationOnRobot.UsbFacingDirection usb_direction, String encoder_name
+                  double width, double length, boolean invert_imu,
+                  RevHubOrientationOnRobot.LogoFacingDirection logo_direction,
+                  RevHubOrientationOnRobot.UsbFacingDirection usb_direction, String encoder_name
     ) {
         super(
-            map, telemetry, invert_imu, logo_direction, usb_direction, 0, 0, 0,
-            true, 0.5,0.1, 0.25,
-            0.025, 1.05, 0.5, 0,
-            0, 0, 1, 0.95
+                map, telemetry, invert_imu, logo_direction, usb_direction, 0, 0, 0,
+                true, 0.5,0.1, 0.25,
+                0.025, 1.05, 0.5, 0,
+                0, 0, 1, 0.95
         );
 
         modules = new SwerveModule[] {
-            new SwerveModule(map, motor_names[0], servo_names[0], width, length, reset_modules),
-            new SwerveModule(map, motor_names[1], servo_names[1], width, -length, reset_modules),
-            new SwerveModule(map, motor_names[2], servo_names[2], -width, -length, reset_modules),
-            new SwerveModule(map, motor_names[3], servo_names[3], -width, length, reset_modules)
+                new SwerveModule(map, motor_names[0], servo_names[0], width, length, reset_modules),
+                new SwerveModule(map, motor_names[1], servo_names[1], width, -length, reset_modules),
+                new SwerveModule(map, motor_names[2], servo_names[2], -width, -length, reset_modules),
+                new SwerveModule(map, motor_names[3], servo_names[3], -width, length, reset_modules)
         };
 
         reset_modules = false;
 
         encoder = new MotorEx(map, encoder_name).encoder;
     } // ordered by right front, right back, left back, left front
-      // MAKE SURE all the wheels are pointing with the gear facing the direction considered as "right"
+    // MAKE SURE all the wheels are pointing with the gear facing the direction considered as "right"
 
     public void resetEncoder() {
         encoder.reset();
@@ -86,9 +86,9 @@ public class Swerve extends DriveSubsystemBase {
         double maximum = 0;
         for (int i = 0; i < 4; i++) {
             maximum = Math.max(maximum, modules[i].getMagnitude(
-                distance_factor * Math.sin(offset * Math.PI / 180.0),
-                distance_factor * Math.cos(offset * Math.PI / 180.0),
-                turning_factor
+                    distance_factor * Math.sin(offset * Math.PI / 180.0),
+                    distance_factor * Math.cos(offset * Math.PI / 180.0),
+                    turning_factor
             ));
         }
         return maximum;
@@ -99,9 +99,9 @@ public class Swerve extends DriveSubsystemBase {
         boolean stop = false;
         for (int i = 0; i < 4; i++) { // this must be replaced with 4 :)
             stop |= modules[i].setModule(
-                distance_factor * Math.sin(offset * Math.PI / 180.0),
-                distance_factor * Math.cos(offset * Math.PI / 180.0),
-                turning_factor
+                    distance_factor * Math.sin(offset * Math.PI / 180.0),
+                    distance_factor * Math.cos(offset * Math.PI / 180.0),
+                    turning_factor
             );
         }
 
@@ -128,3 +128,4 @@ public class Swerve extends DriveSubsystemBase {
     }
 
 }
+

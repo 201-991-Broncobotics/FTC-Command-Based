@@ -28,28 +28,28 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
     private boolean fieldCentric;
 
     private final double heading_calibration_time,
-        min_heading_correction_power,
-        max_heading_correction_power,
-        heading_p,
-        heading_e,
-        position_calibration_time,
-        min_position_correction_power,
-        max_position_correction_power,
-        position_p,
-        position_e,
-        maximum_motor_power; // don't turn as much as we go forward
+            min_heading_correction_power,
+            max_heading_correction_power,
+            heading_p,
+            heading_e,
+            position_calibration_time,
+            min_position_correction_power,
+            max_position_correction_power,
+            position_p,
+            position_e,
+            maximum_motor_power; // don't turn as much as we go forward
 
     private static boolean reset_imu = true;
 
     /** x and y in inches, angle in degrees clockwise */
     public DriveSubsystemBase(HardwareMap map, Telemetry telemetry, boolean invert_imu,
-        RevHubOrientationOnRobot.LogoFacingDirection logo_direction,
-        RevHubOrientationOnRobot.UsbFacingDirection usb_direction,
-        double starting_x, double starting_y, double starting_angle, boolean fieldCentric,
-        double heading_calibration_time, double min_heading_correction_power,
-        double max_heading_correction_power, double heading_p, double heading_e, double position_calibration_time,
-        double min_position_correction_power, double max_position_correction_power,
-        double position_p, double position_e, double maximum_motor_power
+                              RevHubOrientationOnRobot.LogoFacingDirection logo_direction,
+                              RevHubOrientationOnRobot.UsbFacingDirection usb_direction,
+                              double starting_x, double starting_y, double starting_angle, boolean fieldCentric,
+                              double heading_calibration_time, double min_heading_correction_power,
+                              double max_heading_correction_power, double heading_p, double heading_e, double position_calibration_time,
+                              double min_position_correction_power, double max_position_correction_power,
+                              double position_p, double position_e, double maximum_motor_power
     ) {
 
         this.telemetry = telemetry;
@@ -60,7 +60,7 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
         imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(logo_direction, usb_direction)));
 
         pose = new double[] {
-            starting_x, starting_y, starting_angle
+                starting_x, starting_y, starting_angle
         };
 
         resetPosition(starting_x, starting_y);
@@ -154,7 +154,7 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
 
     public final double getPositionError() {
         return Math.sqrt(
-            (target_x - pose[0]) * (target_x - pose[0]) + (target_y - pose[1]) * (target_y - pose[1])
+                (target_x - pose[0]) * (target_x - pose[0]) + (target_y - pose[1]) * (target_y - pose[1])
         );
     }
 
@@ -191,8 +191,8 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
                 target_y = pose[1];
             } else {
                 Translation2d position_error = new Translation2d(
-                    target_x - pose[0],
-                    target_y - pose[1]
+                        target_x - pose[0],
+                        target_y - pose[1]
                 );
                 position_error = position_error.times(position_p);
                 distance_factor = Math.min(position_error.getNorm(), max_position_correction_power);
@@ -304,3 +304,5 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
         base_periodic_loop();
     }
 }
+
+

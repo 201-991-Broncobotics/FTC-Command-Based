@@ -23,9 +23,9 @@ public class ServoEx {
         servo.setDirection(Servo.Direction.FORWARD);
 
         this.zero = zero; // whatever the servo reads at the "zero" angle; will be between 0 and 1
-            // raw reading, regardless of inversions and whatnot
-            // for example, vertical might be at servo position 0.3, and we want vertical to be
-                // considered 0; this variable should be set to 0.3 in this case
+        // raw reading, regardless of inversions and whatnot
+        // for example, vertical might be at servo position 0.3, and we want vertical to be
+        // considered 0; this variable should be set to 0.3 in this case
         this.minAngle = minAngle; // whatever angle we want the minimum to be (not necessarily physical minimum)
         this.maxAngle = maxAngle; // assuming the zero position is at 0 degrees
         this.max_acceleration = max_acceleration; // in degrees
@@ -84,7 +84,7 @@ public class ServoEx {
             last_speed = Math.max(last_speed - max_acceleration * time, Math.min(last_speed + max_acceleration * time, target_value));
             if (getAngle() + last_speed * time >= maxAngle) {
                 last_speed = 0;
-                servo.setPosition(angleToPosition(maxAngle));;
+                servo.setPosition(angleToPosition(maxAngle));
             } else if (getAngle() + last_speed * time <= minAngle) {
                 last_speed = 0;
                 servo.setPosition(angleToPosition(minAngle));

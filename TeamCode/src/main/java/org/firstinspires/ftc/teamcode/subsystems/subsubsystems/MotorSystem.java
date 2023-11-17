@@ -40,7 +40,7 @@ public class MotorSystem {
             motors[i].setZeroPowerBehavior(brake ? Motor.ZeroPowerBehavior.BRAKE : Motor.ZeroPowerBehavior.FLOAT);
             motors[i].setRunMode(Motor.RunMode.RawPower);
         }
-        
+
         if (!registered_systems.contains(motor_names[0])) {
             registered_systems.add(motor_names[0]);
             motors[0].stopAndResetEncoder();

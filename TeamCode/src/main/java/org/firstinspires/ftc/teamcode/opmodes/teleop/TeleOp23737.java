@@ -55,8 +55,6 @@ public class TeleOp23737 extends CommandOpMode {
         Trigger right = new Trigger(() -> driver.getButton(GamepadKeys.Button.DPAD_RIGHT));
         // register subsystems. How - Mael
 
-
-
         register(driveTrain);
 
         // default commands
