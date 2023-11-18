@@ -18,8 +18,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Mecanum;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 
-@TeleOp(name = "TeleOp 23737")
-public class TeleOp23737 extends CommandOpMode {
+@TeleOp(name = "TeleOp 23737 - Just Drive")
+public class TeleOp23737ShaanOnly extends CommandOpMode {
 
     @Override
     public void initialize() {
