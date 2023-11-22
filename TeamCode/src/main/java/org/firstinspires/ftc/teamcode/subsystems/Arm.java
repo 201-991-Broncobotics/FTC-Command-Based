@@ -16,6 +16,10 @@ public class Arm extends SubsystemBase {
         motor5.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor5.setDirection(DcMotor.Direction.FORWARD);
         motor5.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motor6.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motor6.setDirection(DcMotor.Direction.FORWARD);
+        motor6.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
     }
     public void up() {
         motor5.setPower(-0.5);
@@ -27,7 +31,7 @@ public class Arm extends SubsystemBase {
     }
     public void InactiveArm(){
         motor5.setPower(0);
-        motor5.setPower(0);
+        motor6.setPower(0);
     }
     public void setPower(double p) {
         motor5.setPower(p);

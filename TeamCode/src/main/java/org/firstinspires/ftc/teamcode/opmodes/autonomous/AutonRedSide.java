@@ -5,10 +5,9 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
-
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.DriveAndTurn;
+import org.firstinspires.ftc.teamcode.subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 @Autonomous(name = "23737 Auton (Red Side)")
@@ -18,8 +17,7 @@ public class AutonRedSide extends CommandOpMode {
 
         Variables.teleOp = false;
         boolean swerve_drive = true;
-        CRServo servo;
-        servo = hardwareMap.get(CRServo.class, "box2");
+        Outtake outtake = new Outtake(hardwareMap);
 
 
         DriveSubsystemBase driveTrain;
@@ -57,23 +55,7 @@ public class AutonRedSide extends CommandOpMode {
                         telemetry.addLine("Now inserting the pixels");
                         telemetry.update();
                     }),
-                    new InstantCommand(()-> {
-                        servo.setPower(1);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            telemetry.addLine("Oops! Took too long!");
-                            telemetry.update();
-                        }
-                        servo.setPower(-1);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            telemetry.addLine("Oops! Took too long!");
-                            telemetry.update();
-                        }
-                        servo.setPower(0);
-                    }),
+                    new InstantCommand(outtake::shootOut),
                     new InstantCommand(() -> {
                         driveTrain.brake();
                         telemetry.addLine("Done with auto :3");
