@@ -5,10 +5,8 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.arcrobotics.ftclib.command.CommandOpMode;
-
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.DriveAndTurn;
-import org.firstinspires.ftc.teamcode.subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.CSensorBase;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
@@ -19,12 +17,11 @@ public class AutonBlueSide extends CommandOpMode {
 
         Variables.teleOp = false;
         boolean swerve_drive = true;
-        Outtake outtake = new Outtake(hardwareMap);
-
 
         DriveSubsystemBase driveTrain;
 
         //insert Subsystems
+        CSensorBase CSensor = new CSensorBase(hardwareMap); //Puts in color sensor
 
         if (swerve_drive) {
             driveTrain = new Swerve(hardwareMap, telemetry, new String[] {
@@ -41,25 +38,54 @@ public class AutonBlueSide extends CommandOpMode {
                         telemetry.addLine("Waiting for start");
                         telemetry.update();
                         waitForStart();
-                        telemetry.addLine("Starting moving left and forward");
+                        new InstantCommand(CSensor::CSensorStartUp);
+                        telemetry.addLine("Turned on Color Sensor");
+                        telemetry.addLine("Starting moving towards the team prop");
                         telemetry.update();
                     }),
-                    new DriveAndTurn(driveTrain, 0, 20, -90),
+                    new DriveAndTurn(driveTrain, 0, 3, 0),
                     new InstantCommand(() -> {
-                        telemetry.addLine("Robot now moving right");
+                        telemetry.addLine("Looking for Team Prop");
                         telemetry.update();
                     }),
-                    new DriveAndTurn(driveTrain, 0, 5, 0),
                     new InstantCommand(() -> {
-                        telemetry.addLine("Now moving left to and forward to the backdrop");
+                        CSensor.GetTeamPropDistanceBLUE();
+                        if (!CSensor.ColorFound) {
+                            telemetry.addLine("Team Prop Not Found!");
+                            telemetry.addLine("Looking elsewhere");
+                            telemetry.update();
+                            new InstantCommand(() -> new DriveAndTurn(driveTrain, 0, 0, 90));
+                            CSensor.GetTeamPropDistanceBLUE();
+                            if (!CSensor.ColorFound) {
+                                telemetry.addLine("Team Prop Not Found!");
+                                telemetry.addLine("Looking elsewhere");
+                                telemetry.update();
+                                new InstantCommand(() -> new DriveAndTurn(driveTrain, 0, 0, -180));
+                                CSensor.GetTeamPropDistanceBLUE();
+                            telemetry.addLine("Team Prop Must Be Here");
+                            telemetry.addLine("Leaving Pixel Here");
+                            telemetry.update();
+                            new InstantCommand(() -> new DriveAndTurn(driveTrain,0, 0, 180));
+                            new InstantCommand(() -> new DriveAndTurn(driveTrain, 0, 10, 0));
+                            telemetry.addLine("Parked to backdrop");
+                            telemetry.addLine("Done with auto");
+                            driveTrain.brake();
+                            telemetry.update();
+                            }
+                        }
+                        else if (CSensor.ColorFound)
+                        telemetry.addLine("Team Prop Found!");
+                        telemetry.addLine("Leaving Pixel Here");
+                        telemetry.addLine("Moving towards backdrop and shutting off the Color Sensor");
                         telemetry.update();
+                        new InstantCommand(() -> new DriveAndTurn(driveTrain, 0, 0, 90));
+                        CSensor.CSensorNotActive();
                     }),
-                    new DriveAndTurn(driveTrain, 0, 5, -90),
+                    new DriveAndTurn(driveTrain, 0, 10, 0),
                     new InstantCommand(() -> {
-                        telemetry.addLine("Now inserting the pixels");
+                        telemetry.addLine("Parked");
                         telemetry.update();
                     }),
-                    new InstantCommand(outtake::shootOut),
                     new InstantCommand(() -> {
                         driveTrain.brake();
                         telemetry.addLine("Done with auto");
@@ -70,9 +96,6 @@ public class AutonBlueSide extends CommandOpMode {
         // register subsystems
 
             register(driveTrain);
-
-        // default commands
-
 
         }
 
