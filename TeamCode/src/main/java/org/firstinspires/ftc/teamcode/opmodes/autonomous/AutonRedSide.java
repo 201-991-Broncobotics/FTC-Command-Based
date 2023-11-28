@@ -74,14 +74,16 @@ public class AutonRedSide extends CommandOpMode {
                             }
                         }
                         else if (CSensor.ColorFound)
-                            telemetry.addLine("Team Prop Found!");
+                        telemetry.addLine("Team Prop Found!");
                         telemetry.addLine("Leaving Pixel Here");
                         telemetry.addLine("Moving towards backdrop and shutting off the Color Sensor");
                         telemetry.update();
                         new InstantCommand(() -> new DriveAndTurn(driveTrain, 0, 0, -90));
                         CSensor.CSensorNotActive();
                     }),
-                    new DriveAndTurn(driveTrain, 0, 10, 0),
+                    new InstantCommand(() -> new DriveAndTurn(driveTrain,0,10,0)),
+                    new InstantCommand(() -> new DriveAndTurn(driveTrain,3,0,0)),
+                    new InstantCommand(() -> new DriveAndTurn(driveTrain,0,3,0)),
                     new InstantCommand(() -> {
                         telemetry.addLine("Parked");
                         telemetry.update();
