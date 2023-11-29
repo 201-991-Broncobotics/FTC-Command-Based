@@ -11,11 +11,11 @@ public class Claw extends SubsystemBase {
     Servo servo3;
     public Claw(HardwareMap map) {
 
-        motor8 = map.get(DcMotor.class, "Claw Dc");
+        motor8 = map.get(DcMotor.class, "ClawDC");
         motor8.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor8.setDirection(DcMotor.Direction.FORWARD);
         motor8.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        servo3 = map.get(Servo.class, "Claw Servo");
+        servo3 = map.get(Servo.class, "ClawServo");
         servo3.setPosition(0);
     }
     public void Open() {

@@ -125,6 +125,7 @@ public class AutonREDSideCLAW extends CommandOpMode {
                         new DriveAndTurn(driveTrain, 0, 3, 0);
                         new InstantCommand(() -> {
                             telemetry.addLine("Parked");
+                            new InstantCommand(claw::Close);
                             telemetry.update();
                         });
                         new InstantCommand(() -> {
