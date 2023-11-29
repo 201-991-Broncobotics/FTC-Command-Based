@@ -57,13 +57,13 @@ public class AutonREDSideCLAW extends CommandOpMode {
                             telemetry.addLine("Team Prop Not Found!");
                             telemetry.addLine("Looking elsewhere");
                             telemetry.update();
-                            new DriveAndTurn(driveTrain, 0, 0, 90);
+                            new DriveAndTurn(driveTrain, 0, 0, 60);
                             CSensor.GetTeamPropDistanceRED();
                             if (!CSensor.ColorFound) {
                                 telemetry.addLine("Team Prop Not Found!");
                                 telemetry.addLine("Looking elsewhere");
                                 telemetry.update();
-                                new InstantCommand(() -> new DriveAndTurn(driveTrain, 0, 0, -180));
+                                new InstantCommand(() -> new DriveAndTurn(driveTrain, 0, 0, -90));
                                 CSensor.GetTeamPropDistanceRED();
                                 telemetry.addLine("Team Prop Must Be Here");
                                 telemetry.addLine("Leaving Pixel Here");
@@ -95,11 +95,11 @@ public class AutonREDSideCLAW extends CommandOpMode {
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, -3, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain, 0, 0, -90);
+                                new DriveAndTurn(driveTrain, 0, 0, 90);
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, 10, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain, 5, 0, 0);
+                                new DriveAndTurn(driveTrain, -5, 0, 0);
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, 3, 0);
                                 driveTrain.brake();
@@ -116,11 +116,11 @@ public class AutonREDSideCLAW extends CommandOpMode {
                         new InstantCommand(CSensor::CSensorNotActive);
                         new DriveAndTurn(driveTrain, 0, -3, 0);
                         sleep(100);
-                        new DriveAndTurn(driveTrain, 0, 0, -90);
+                        new DriveAndTurn(driveTrain, 0, 0, 90);
                         sleep(100);
                         new DriveAndTurn(driveTrain, 0, 10, 0);
                         sleep(100);
-                        new DriveAndTurn(driveTrain, 5, 0, 0);
+                        new DriveAndTurn(driveTrain, -5, 0, 0);
                         sleep(100);
                         new DriveAndTurn(driveTrain, 0, 3, 0);
                         new InstantCommand(() -> {

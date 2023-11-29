@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.commands.utilcommands.DriveAndTurn;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.CSensorBase;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
-import org.firstinspires.ftc.teamcode.subsystems.Claw;
 
 @Autonomous(name = "23737 Auton No Claw (Blue Side)")
 public class AutonBlueSideNoClaw extends CommandOpMode {
@@ -56,13 +55,13 @@ public class AutonBlueSideNoClaw extends CommandOpMode {
                             telemetry.addLine("Team Prop Not Found!");
                             telemetry.addLine("Looking elsewhere");
                             telemetry.update();
-                            new DriveAndTurn(driveTrain, 0, 0, 90);
+                            new DriveAndTurn(driveTrain, 0, 0, 60);
                             CSensor.GetTeamPropDistanceBLUE();
                             if (!CSensor.ColorFound) {
                                 telemetry.addLine("Team Prop Not Found!");
                                 telemetry.addLine("Looking elsewhere");
                                 telemetry.update();
-                                new InstantCommand(() -> new DriveAndTurn(driveTrain, 0, 0, -180));
+                                new InstantCommand(() -> new DriveAndTurn(driveTrain, 0, 0, -90));
                                 CSensor.GetTeamPropDistanceBLUE();
                                 telemetry.addLine("Team Prop Must Be Here");
                                 telemetry.addLine("Leaving Pixel Here");
@@ -71,11 +70,11 @@ public class AutonBlueSideNoClaw extends CommandOpMode {
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, -3, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain, 0, 0, 90);
+                                new DriveAndTurn(driveTrain, 0, 0, -90);
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, 10, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain, -3, 0, 0);
+                                new DriveAndTurn(driveTrain, 5, 0, 0);
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, 3, 0);
                                 driveTrain.brake();
@@ -92,11 +91,11 @@ public class AutonBlueSideNoClaw extends CommandOpMode {
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, -3, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain, 0, 0, 90);
+                                new DriveAndTurn(driveTrain, 0, 0, -90);
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, 10, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain, -5, 0, 0);
+                                new DriveAndTurn(driveTrain, 5, 0, 0);
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, 3, 0);
                                 driveTrain.brake();
@@ -112,11 +111,11 @@ public class AutonBlueSideNoClaw extends CommandOpMode {
                         new InstantCommand(CSensor::CSensorNotActive);
                         new DriveAndTurn(driveTrain, 0, -3, 0);
                         sleep(100);
-                        new DriveAndTurn(driveTrain, 0, 0, 90);
+                        new DriveAndTurn(driveTrain, 0, 0, -90);
                         sleep(100);
                         new DriveAndTurn(driveTrain, 0, 10, 0);
                         sleep(100);
-                        new DriveAndTurn(driveTrain, -5, 0, 0);
+                        new DriveAndTurn(driveTrain, 5, 0, 0);
                         sleep(100);
                         new DriveAndTurn(driveTrain, 0, 3, 0);
                         new InstantCommand(() -> {
