@@ -34,4 +34,13 @@ public class Claw extends SubsystemBase {
 
         motor8.setPower(-0.5);
     }
+    public void InactiveClaw() {
+
+        servo3.setPosition(0);
+    }
+    public void InactiveArm() {
+
+        motor8.setPower(0);
+    }
+
 }

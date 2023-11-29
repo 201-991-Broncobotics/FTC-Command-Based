@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.CSensorBase;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 
-@Autonomous(name = "23737 Auton With Claw (Blue Side)")
-public class AutonBlueSideCLAW extends CommandOpMode {
+@Autonomous(name = "23737 Auton No Claw (Blue Side)")
+public class AutonBlueSideNoClaw extends CommandOpMode {
     @Override
     public void initialize() {
 
@@ -24,7 +24,6 @@ public class AutonBlueSideCLAW extends CommandOpMode {
 
         //insert Subsystems
         CSensorBase CSensor = new CSensorBase(hardwareMap); //Puts in color sensor
-        Claw claw = new Claw(hardwareMap);
 
         if (swerve_drive) {
             driveTrain = new Swerve(hardwareMap, telemetry, new String[] {
@@ -67,7 +66,6 @@ public class AutonBlueSideCLAW extends CommandOpMode {
                                 CSensor.GetTeamPropDistanceBLUE();
                                 telemetry.addLine("Team Prop Must Be Here");
                                 telemetry.addLine("Leaving Pixel Here");
-                                new InstantCommand(claw::Open);
                                 telemetry.update();
                                 new DriveAndTurn(driveTrain, 0, 0, 0);
                                 sleep(100);
@@ -87,7 +85,6 @@ public class AutonBlueSideCLAW extends CommandOpMode {
                             } else if (CSensor.ColorFound) {
                                 telemetry.addLine("Team Prop Found!");
                                 telemetry.addLine("Leaving Pixel Here");
-                                new InstantCommand(claw::Open);
                                 telemetry.addLine("Moving towards backdrop and shutting off the Color Sensor");
                                 telemetry.update();
                                 new InstantCommand(CSensor::CSensorNotActive);
@@ -110,7 +107,6 @@ public class AutonBlueSideCLAW extends CommandOpMode {
                         } else if (CSensor.ColorFound)
                             telemetry.addLine("Team Prop Found!");
                         telemetry.addLine("Leaving Pixel Here");
-                        new InstantCommand(claw::Open);
                         telemetry.addLine("Moving towards backdrop and shutting off the Color Sensor");
                         telemetry.update();
                         new InstantCommand(CSensor::CSensorNotActive);
@@ -119,26 +115,26 @@ public class AutonBlueSideCLAW extends CommandOpMode {
                         new DriveAndTurn(driveTrain, 0, 0, 90);
                         sleep(100);
                         new DriveAndTurn(driveTrain, 0, 10, 0);
-                                sleep(100);
-                                new DriveAndTurn(driveTrain, -5, 0, 0);
-                                sleep(100);
-                                new DriveAndTurn(driveTrain, 0, 3, 0);
-                                new InstantCommand(() -> {
-                                    telemetry.addLine("Parked");
-                                    new InstantCommand(claw::Close);
-                                    telemetry.update();
-                                });
-                                new InstantCommand(() -> {
-                                    driveTrain.brake();
-                                    telemetry.addLine("Done with auto");
-                                    telemetry.update();
-                                });
+                        sleep(100);
+                        new DriveAndTurn(driveTrain, -5, 0, 0);
+                        sleep(100);
+                        new DriveAndTurn(driveTrain, 0, 3, 0);
+                        new InstantCommand(() -> {
+                            telemetry.addLine("Parked");
+                            telemetry.update();
+                        });
+                        new InstantCommand(() -> {
+                            driveTrain.brake();
+                            telemetry.addLine("Done with auto");
+                            telemetry.update();
+                        });
                     })
             ));
 
-        // register subsystems
+            // register subsystems
 
             register(driveTrain);
         }
     }
 }
+

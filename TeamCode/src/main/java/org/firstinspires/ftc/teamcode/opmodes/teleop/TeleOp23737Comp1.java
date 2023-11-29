@@ -9,7 +9,6 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.defaultcommands.TeleOpDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
@@ -19,8 +18,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 
-@TeleOp(name = "TeleOp 23737 - Test")
-public class TeleOp23737FullEdit extends CommandOpMode {
+@TeleOp(name = "TeleOp 23737 - Comp 1")
+public class TeleOp23737Comp1 extends CommandOpMode {
 
     @Override
     public void initialize() {
