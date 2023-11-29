@@ -31,7 +31,7 @@ public class CSensorBase extends SubsystemBase {
             Distance = colorSensor.getDistance(DistanceUnit.INCH);
             telemetry.addLine("Red Found!");
             telemetry.addData("Red: ", colorSensor.red());
-            telemetry.addLine("Blue Is: " + Distance + "Inches Away!");
+            telemetry.addLine("Blue Is: " + Distance + " Inches Away!");
             telemetry.update();
         }
         else {
@@ -41,10 +41,11 @@ public class CSensorBase extends SubsystemBase {
     }
     public void GetTeamPropDistanceBLUE() { //See above. Same thing but for the BLUE team prop
         if (colorSensor.blue() > 1) {
+            ColorFound = true;
             Distance = colorSensor.getDistance(DistanceUnit.INCH);
             telemetry.addLine("Blue Found!");
             telemetry.addData("Blue: ", colorSensor.blue());
-            telemetry.addLine("Blue Is: " + Distance + "Inches Away!");
+            telemetry.addLine("Blue Is: " + Distance + " Inches Away!");
             telemetry.update();
         }
         else {

@@ -38,7 +38,7 @@ public class AutonREDSideCLAW extends CommandOpMode {
 
             schedule(new SequentialCommandGroup(
                     new InstantCommand(() -> {
-                        telemetry.addLine("Waiting for start");
+                        telemetry.addLine("Waiting for start...");
                         telemetry.update();
                         waitForStart();
                         new InstantCommand(CSensor::CSensorStartUp);
@@ -46,7 +46,7 @@ public class AutonREDSideCLAW extends CommandOpMode {
                         telemetry.addLine("Starting moving towards the team prop");
                         telemetry.update();
                     }),
-                    new DriveAndTurn(driveTrain, 0, 3, 0),
+                    new DriveAndTurn(driveTrain, 0, 25, 0),
                     new InstantCommand(() -> {
                         telemetry.addLine("Looking for Team Prop");
                         telemetry.update();
@@ -71,15 +71,15 @@ public class AutonREDSideCLAW extends CommandOpMode {
                                 telemetry.update();
                                 new DriveAndTurn(driveTrain, 0, 0, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain, 0, -3, 0);
+                                new DriveAndTurn(driveTrain, 0, -25, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain, 0, 0, -90);
+                                new DriveAndTurn(driveTrain, 0, 0, 90);
+                                sleep(100);
+                                new DriveAndTurn(driveTrain, 0, 30, 0);
+                                sleep(100);
+                                new DriveAndTurn(driveTrain, -20, 0, 0);
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, 10, 0);
-                                sleep(100);
-                                new DriveAndTurn(driveTrain, 5, 0, 0);
-                                sleep(100);
-                                new DriveAndTurn(driveTrain, 0, 3, 0);
                                 driveTrain.brake();
                                 telemetry.addLine("Parked to backdrop");
                                 telemetry.addLine("Done with auto");
@@ -93,15 +93,15 @@ public class AutonREDSideCLAW extends CommandOpMode {
                                 new InstantCommand(CSensor::CSensorNotActive);
                                 new DriveAndTurn(driveTrain, 0, 0, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain, 0, -3, 0);
+                                new DriveAndTurn(driveTrain, 0, -25, 0);
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, 0, 90);
                                 sleep(100);
+                                new DriveAndTurn(driveTrain, 0, 30, 0);
+                                sleep(100);
+                                new DriveAndTurn(driveTrain, -20, 0, 0);
+                                sleep(100);
                                 new DriveAndTurn(driveTrain, 0, 10, 0);
-                                sleep(100);
-                                new DriveAndTurn(driveTrain, -5, 0, 0);
-                                sleep(100);
-                                new DriveAndTurn(driveTrain, 0, 3, 0);
                                 driveTrain.brake();
                                 telemetry.addLine("Parked");
                                 telemetry.addLine("Done WIth Auto");
@@ -114,15 +114,15 @@ public class AutonREDSideCLAW extends CommandOpMode {
                         telemetry.addLine("Moving towards backdrop and shutting off the Color Sensor");
                         telemetry.update();
                         new InstantCommand(CSensor::CSensorNotActive);
-                        new DriveAndTurn(driveTrain, 0, -3, 0);
+                        new DriveAndTurn(driveTrain, 0, -25, 0);
                         sleep(100);
                         new DriveAndTurn(driveTrain, 0, 0, 90);
                         sleep(100);
+                        new DriveAndTurn(driveTrain, 0, 30, 0);
+                        sleep(100);
+                        new DriveAndTurn(driveTrain, -20, 0, 0);
+                        sleep(100);
                         new DriveAndTurn(driveTrain, 0, 10, 0);
-                        sleep(100);
-                        new DriveAndTurn(driveTrain, -5, 0, 0);
-                        sleep(100);
-                        new DriveAndTurn(driveTrain, 0, 3, 0);
                         new InstantCommand(() -> {
                             telemetry.addLine("Parked");
                             new InstantCommand(claw::Close);

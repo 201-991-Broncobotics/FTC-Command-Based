@@ -57,8 +57,8 @@ public class TeleOp23737PreComp2 extends CommandOpMode {
         Trigger left = new Trigger(() -> driver.getButton(GamepadKeys.Button.DPAD_LEFT));
         Trigger right = new Trigger(() -> driver.getButton(GamepadKeys.Button.DPAD_RIGHT));
         Trigger droneMechanism = new Trigger(() -> operator.getButton(GamepadKeys.Button.DPAD_LEFT));
-        Trigger closeClaw = new Trigger(() -> operator.getButton(GamepadKeys.Button.X));
-        Trigger openClaw = new Trigger(() -> operator.getButton(GamepadKeys.Button.B));
+        Trigger closeClaw = new Trigger(() -> operator.getButton(GamepadKeys.Button.LEFT_BUMPER));
+        Trigger openClaw = new Trigger(() -> operator.getButton(GamepadKeys.Button.LEFT_BUMPER));
         Trigger upClaw = new Trigger(() -> operator.getButton(GamepadKeys.Button.Y));
         Trigger downClaw = new Trigger(() -> operator.getButton(GamepadKeys.Button.A));
 
@@ -67,6 +67,7 @@ public class TeleOp23737PreComp2 extends CommandOpMode {
         register(driveTrain);
         register(drone);
         register(claw);
+
         // default commands
 
         driveTrain.setDefaultCommand(new TeleOpDrive(
