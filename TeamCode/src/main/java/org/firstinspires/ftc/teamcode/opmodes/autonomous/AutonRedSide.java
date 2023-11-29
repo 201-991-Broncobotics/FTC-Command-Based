@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.commands.utilcommands.DriveAndTurn;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.CSensorBase;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
+//This doesn't work, don't use. Use CLAW version instead :)
 @Autonomous(name = "23737 Auton (Red Side)")
 public class AutonRedSide extends CommandOpMode {
     @Override

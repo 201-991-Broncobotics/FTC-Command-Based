@@ -69,67 +69,69 @@ public class AutonREDSideCLAW extends CommandOpMode {
                                 telemetry.addLine("Leaving Pixel Here");
                                 new InstantCommand(claw::Open);
                                 telemetry.update();
-                                new DriveAndTurn(driveTrain,0, 0, 0);
+                                new DriveAndTurn(driveTrain, 0, 0, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain,0,-3,0);
+                                new DriveAndTurn(driveTrain, 0, -3, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain,0, 0, -90);
+                                new DriveAndTurn(driveTrain, 0, 0, -90);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain,0,10,0);
+                                new DriveAndTurn(driveTrain, 0, 10, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain,5,0,0);
+                                new DriveAndTurn(driveTrain, 5, 0, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain,0,3,0);
+                                new DriveAndTurn(driveTrain, 0, 3, 0);
                                 driveTrain.brake();
                                 telemetry.addLine("Parked to backdrop");
                                 telemetry.addLine("Done with auto");
                                 telemetry.update();
-                            }
-                            else if (CSensor.ColorFound) {
+                            } else if (CSensor.ColorFound) {
                                 telemetry.addLine("Team Prop Found!");
                                 telemetry.addLine("Leaving Pixel Here");
                                 new InstantCommand(claw::Open);
                                 telemetry.addLine("Moving towards backdrop and shutting off the Color Sensor");
                                 telemetry.update();
                                 new InstantCommand(CSensor::CSensorNotActive);
-                                new DriveAndTurn(driveTrain,0,0,0);
+                                new DriveAndTurn(driveTrain, 0, 0, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain,0,-3,0);
+                                new DriveAndTurn(driveTrain, 0, -3, 0);
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, 0, -90);
                                 sleep(100);
                                 new DriveAndTurn(driveTrain, 0, 10, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain,5,0,0);
+                                new DriveAndTurn(driveTrain, 5, 0, 0);
                                 sleep(100);
-                                new DriveAndTurn(driveTrain,0,3,0);
+                                new DriveAndTurn(driveTrain, 0, 3, 0);
                                 driveTrain.brake();
                                 telemetry.addLine("Parked");
                                 telemetry.addLine("Done WIth Auto");
                                 telemetry.update();
                             }
-                        }
-                        else if (CSensor.ColorFound)
+                        } else if (CSensor.ColorFound)
                             telemetry.addLine("Team Prop Found!");
                         telemetry.addLine("Leaving Pixel Here");
                         new InstantCommand(claw::Open);
                         telemetry.addLine("Moving towards backdrop and shutting off the Color Sensor");
                         telemetry.update();
-                        new DriveAndTurn(driveTrain,0,-3,0);
-                        new DriveAndTurn(driveTrain, 0, 0, -90);
                         new InstantCommand(CSensor::CSensorNotActive);
-                    }),
-                    new DriveAndTurn(driveTrain, 0, 10, 0),
-                    new DriveAndTurn(driveTrain,5,0,0),
-                    new DriveAndTurn(driveTrain,0,3,0),
-                    new InstantCommand(() -> {
-                        telemetry.addLine("Parked");
-                        telemetry.update();
-                    }),
-                    new InstantCommand(() -> {
-                        driveTrain.brake();
-                        telemetry.addLine("Done with auto");
-                        telemetry.update();
+                        new DriveAndTurn(driveTrain, 0, -3, 0);
+                        sleep(100);
+                        new DriveAndTurn(driveTrain, 0, 0, -90);
+                        sleep(100);
+                        new DriveAndTurn(driveTrain, 0, 10, 0);
+                        sleep(100);
+                        new DriveAndTurn(driveTrain, 5, 0, 0);
+                        sleep(100);
+                        new DriveAndTurn(driveTrain, 0, 3, 0);
+                        new InstantCommand(() -> {
+                            telemetry.addLine("Parked");
+                            telemetry.update();
+                        });
+                        new InstantCommand(() -> {
+                            driveTrain.brake();
+                            telemetry.addLine("Done with auto");
+                            telemetry.update();
+                        });
                     })
             ));
 
