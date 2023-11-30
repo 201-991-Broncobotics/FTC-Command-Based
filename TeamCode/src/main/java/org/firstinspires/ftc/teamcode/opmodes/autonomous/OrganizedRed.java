@@ -52,7 +52,7 @@ public class OrganizedRed extends CommandOpMode {
                 CSensor.GetTeamPropDistanceRED();
             }),
             new InstantCommand(() -> {
-                if (CSensor.ColorFound = true) {
+                if (CSensor.ColorFound) {
                     new InstantCommand(() -> {
                     telemetry.addLine("Team Prop Found!");
                     telemetry.addLine("Leaving Pixel Here");
@@ -72,7 +72,7 @@ public class OrganizedRed extends CommandOpMode {
                     telemetry.addLine("Done with auto");
                     telemetry.update();
                     });
-                } else if (CSensor.ColorFound = false) {
+                } else {
                     new InstantCommand(() -> {
                     telemetry.addLine("Team Prop Not Found!");
                     telemetry.addLine("Looking elsewhere");
@@ -80,9 +80,9 @@ public class OrganizedRed extends CommandOpMode {
                     });
                     new InstantCommand(() -> {
                     new DriveAndTurn(driveTrain,0,0,60);
-                    CSensor.GetTeamPropDistanceRED();
+                    CSensor.GetTeamPropDistanceRED2();
                     });
-                    if (CSensor.ColorFound = true) {
+                    if (CSensor.ColorFound2) {
                         new InstantCommand(() -> {
                             telemetry.addLine("Team Prop Found!");
                             telemetry.addLine("Leaving Pixel Here");
@@ -103,16 +103,13 @@ public class OrganizedRed extends CommandOpMode {
                             telemetry.addLine("Done with auto");
                             telemetry.update();
                         });
-                    } else if (CSensor.ColorFound = false) {
+                    } else {
                         new InstantCommand(() -> {
                             telemetry.addLine("Team Prop Not Found!");
                             telemetry.addLine("Team Prop Must Be in Last Spot");
                             telemetry.update();
                         });
-                        new InstantCommand(() -> {
-                            new DriveAndTurn(driveTrain,0,0,-90);
-                            CSensor.GetTeamPropDistanceRED();
-                        });
+                        new InstantCommand(() -> new DriveAndTurn(driveTrain,0,0,-90));
                         new InstantCommand(() -> {
                             telemetry.addLine("Leaving Pixel Here");
                             new DriveAndTurn(driveTrain,0,0,0);
