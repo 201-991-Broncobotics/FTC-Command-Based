@@ -42,10 +42,10 @@ public class RedTest extends CommandOpMode {
                 telemetry.addLine("Now moving towards the Team Prop");
                 telemetry.update();
             }),
+            new SwerveDriveCommand(driveTrain,0,25,0),
             new InstantCommand(() -> {
                 telemetry.addLine("Looking for Team Prop");
                 telemetry.update();
-                new SwerveDriveCommand(driveTrain,0,25,0);
                 CSensor.GetTeamPropDistanceRED();
             }),
             new InstantCommand(() -> {
@@ -55,12 +55,13 @@ public class RedTest extends CommandOpMode {
                     telemetry.addLine("Leaving Pixel Here");
                     telemetry.update();
                     });
-                    new InstantCommand(() -> {
+                    new SequentialCommandGroup(() -> {
                     new SwerveDriveCommand(driveTrain,0,-25,0);
                     new SwerveDriveCommand(driveTrain,0,0,90);
                     new SwerveDriveCommand(driveTrain,0,30,0);
                     new SwerveDriveCommand(driveTrain,-20,0,0);
                     new SwerveDriveCommand(driveTrain,0,10,0);
+                    return null;
                     });
                     new InstantCommand(() -> {
                     driveTrain.brake();

@@ -33,13 +33,13 @@ public class Claw extends SubsystemBase {
     }
     public void MoveUp() {
 
-        motor8.setPower(0.5);
-        motor9.setPower(0.5);
+        motor8.setPower(1);
+        motor9.setPower(1);
     }
     public void MoveDown() {
 
-        motor8.setPower(-0.5);
-        motor9.setPower(-0.5);
+        motor8.setPower(-1);
+        motor9.setPower(-1);
     }
     public void InactiveClaw() {
 

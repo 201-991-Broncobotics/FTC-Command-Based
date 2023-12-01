@@ -37,7 +37,7 @@ public class Swerve extends DriveSubsystemBase {
         super(
                 map, telemetry, invert_imu, logo_direction, usb_direction, 0, 0, 0,
                 true, 0.5,0.1, 0.25,
-                0.025, 1.05, 0.5, 0,
+                1, 1.05, 0.5, 0,
                 0, 0, 1, 0.95
         );
 

@@ -12,14 +12,12 @@ public class Arm extends SubsystemBase {
     public Arm (HardwareMap map) { //public *insert name* ideally gives the computer what the name of the motors are, and their settings
         motor5 = map.get(DcMotor.class, "la");
         motor6 = map.get(DcMotor.class, "ra");
-
         motor5.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor5.setDirection(DcMotor.Direction.FORWARD);
         motor5.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motor6.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor6.setDirection(DcMotor.Direction.FORWARD);
         motor6.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
     }
     public void up() { //public VOID *insert name()* is a method. It's a behavior for what your class is going to do
         motor5.setPower(-0.5);

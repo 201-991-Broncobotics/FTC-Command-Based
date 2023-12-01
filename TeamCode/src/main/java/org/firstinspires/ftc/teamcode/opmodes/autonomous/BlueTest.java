@@ -6,7 +6,6 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Variables;
-import org.firstinspires.ftc.teamcode.commands.utilcommands.DriveAndTurn;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.SwerveDriveCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.CSensorBase;
@@ -44,10 +43,10 @@ public class BlueTest extends CommandOpMode {
                 telemetry.addLine("Now moving towards the Team Prop");
                 telemetry.update();
             }),
+            new SwerveDriveCommand(driveTrain,0,25,0),
             new InstantCommand(() -> {
                 telemetry.addLine("Looking for Team Prop");
                 telemetry.update();
-                new SwerveDriveCommand(driveTrain,0,25,0);
                 CSensor.GetTeamPropDistanceBLUE();
             }),
             new InstantCommand(() -> {
@@ -57,12 +56,13 @@ public class BlueTest extends CommandOpMode {
                     telemetry.addLine("Leaving Pixel Here");
                     telemetry.update();
                     });
-                    new InstantCommand(() -> {
-                    new SwerveDriveCommand(driveTrain,0,-25,0);
-                    new SwerveDriveCommand(driveTrain,0,0,-90);
-                    new SwerveDriveCommand(driveTrain,0,30,0);
-                    new SwerveDriveCommand(driveTrain,20,0,0);
-                    new SwerveDriveCommand(driveTrain,0,10,0);
+                    new SequentialCommandGroup(() -> {
+                        new SwerveDriveCommand(driveTrain, 0, -25, 0);
+                        new SwerveDriveCommand(driveTrain, 0, 0, -90);
+                        new SwerveDriveCommand(driveTrain, 0, 30, 0);
+                        new SwerveDriveCommand(driveTrain, 20, 0, 0);
+                        new SwerveDriveCommand(driveTrain, 0, 10, 0);
+                        return null;
                     });
                     new InstantCommand(() -> {
                     driveTrain.brake();
@@ -77,23 +77,22 @@ public class BlueTest extends CommandOpMode {
                     telemetry.addLine("Looking elsewhere");
                     telemetry.update();
                     });
-                    new InstantCommand(() -> {
                     new SwerveDriveCommand(driveTrain,0,0,60);
-                    CSensor.GetTeamPropDistanceBLUE2();
-                    });
+                    new InstantCommand(CSensor::GetTeamPropDistanceBLUE2);
                     if (CSensor.ColorFound2) {
                         new InstantCommand(() -> {
                             telemetry.addLine("Team Prop Found!");
                             telemetry.addLine("Leaving Pixel Here");
                             telemetry.update();
                         });
-                        new InstantCommand(() -> {
+                        new SequentialCommandGroup(() -> {
                             new SwerveDriveCommand(driveTrain,0,0,0);
                             new SwerveDriveCommand(driveTrain,0,-25,0);
                             new SwerveDriveCommand(driveTrain,0,0,-90);
                             new SwerveDriveCommand(driveTrain,0,30,0);
                             new SwerveDriveCommand(driveTrain,20,0,0);
                             new SwerveDriveCommand(driveTrain,0,10,0);
+                            return null;
                         });
                         new InstantCommand(() -> {
                             driveTrain.brake();
@@ -108,15 +107,16 @@ public class BlueTest extends CommandOpMode {
                             telemetry.addLine("Team Prop Must Be in Last Spot");
                             telemetry.update();
                         });
-                        new InstantCommand(() -> new DriveAndTurn(driveTrain,0,0,-90));
-                        new InstantCommand(() -> {
-                            telemetry.addLine("Leaving Pixel Here");
+                        new SwerveDriveCommand(driveTrain,0,0,-90);
+                        new InstantCommand(() -> telemetry.addLine("Leaving Pixel Here"));
+                        new SequentialCommandGroup(() -> {
                             new SwerveDriveCommand(driveTrain,0,0,0);
                             new SwerveDriveCommand(driveTrain,0,-25,0);
                             new SwerveDriveCommand(driveTrain,0,0,-90);
                             new SwerveDriveCommand(driveTrain,0,30,0);
                             new SwerveDriveCommand(driveTrain,20,0,0);
                             new SwerveDriveCommand(driveTrain,0,10,0);
+                            return null;
                         });
                         new InstantCommand(() -> {
                             driveTrain.brake();
