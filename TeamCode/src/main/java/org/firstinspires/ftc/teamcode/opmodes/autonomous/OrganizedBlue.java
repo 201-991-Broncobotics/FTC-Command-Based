@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.commands.utilcommands.DriveAndTurn;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.CSensorBase;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
-@Autonomous(name = "23737 Auton BACKUP (Blue Side)")
+@Autonomous(name = "23737 Auton (Blue Side)")
 public class OrganizedBlue extends CommandOpMode {
     @Override
     public void initialize() {

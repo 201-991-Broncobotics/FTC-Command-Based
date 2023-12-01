@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.CSensorBase;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 
-@Autonomous(name = "23737 Auton No Claw (Blue Side)")
+@Autonomous(name = "23737 Auton - Old (Blue Side)")
 public class AutonBlueSideNoClaw extends CommandOpMode {
     @Override
     public void initialize() {

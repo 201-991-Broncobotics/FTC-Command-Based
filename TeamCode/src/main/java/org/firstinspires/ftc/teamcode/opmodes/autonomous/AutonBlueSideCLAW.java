@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.CSensorBase;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 
-@Autonomous(name = "23737 Auton With Claw (Blue Side)")
+@Autonomous(name = "23737 Auton - Old w/ Claw (Blue Side)")
 public class AutonBlueSideCLAW extends CommandOpMode {
     @Override
     public void initialize() {
