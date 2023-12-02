@@ -16,9 +16,11 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
 
     protected final Telemetry telemetry;
 
-    private final IMU imu;
+    private IMU imu;
     private final boolean invert_imu;
-    private double imu_zero, last_time, target_heading;
+    private double imu_zero;
+    private double last_time;
+    protected double target_heading;
 
     private double last_translation_time, target_x, target_y;
 
@@ -148,7 +150,7 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
         setTargetPosition( pose[0] + delta_x, pose[1] + delta_y);
     }
 
-    public final double getHeadingError() {
+    public double getHeadingError() {
         return normalize_angle(target_heading - getHeading());
     }
 
@@ -218,6 +220,8 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
             target_heading = current_heading;
             last_time = System.currentTimeMillis() / 1000.0;
         }
+
+        telemetry.addData("turning factor", turning_factor);
 
         /* Field Centric */
 

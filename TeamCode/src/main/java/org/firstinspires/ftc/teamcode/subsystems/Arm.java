@@ -30,7 +30,7 @@ public class Arm extends SubsystemBase {
     }
     public void InactiveArm(){
         motor5.setPower(0);
-        motor5.setPower(0);
+        motor6.setPower(0);
     }
     public void setPower(double p) {
         motor5.setPower(p);

@@ -57,7 +57,7 @@ public class BlueTest extends CommandOpMode {
                             telemetry.update();
                         });
                         new SequentialCommandGroup(() -> {
-                            new SwerveDriveCommand(driveTrain, 0, -25, 0);
+                            new SwerveDriveCommand(driveTrain, 0, -23, 0);
                             new SwerveDriveCommand(driveTrain, 0, 0, -90);
                             new SwerveDriveCommand(driveTrain, 0, 30, 0);
                             new SwerveDriveCommand(driveTrain, 20, 0, 0);
@@ -87,7 +87,7 @@ public class BlueTest extends CommandOpMode {
                             });
                             new SequentialCommandGroup(() -> {
                                 new SwerveDriveCommand(driveTrain,0,0,0);
-                                new SwerveDriveCommand(driveTrain,0,-25,0);
+                                new SwerveDriveCommand(driveTrain,0,-23,0);
                                 new SwerveDriveCommand(driveTrain,0,0,-90);
                                 new SwerveDriveCommand(driveTrain,0,30,0);
                                 new SwerveDriveCommand(driveTrain,20,0,0);

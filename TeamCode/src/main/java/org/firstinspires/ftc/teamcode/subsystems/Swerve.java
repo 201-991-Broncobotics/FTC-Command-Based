@@ -36,16 +36,16 @@ public class Swerve extends DriveSubsystemBase {
     ) {
         super(
                 map, telemetry, invert_imu, logo_direction, usb_direction, 0, 0, 0,
-                true, 0.5,0.1, 0.25,
-                0.025, 1.05, 0.5, 0,
+                true, 0,0.2, 0.25,
+                0.02, 1.025, 0.5, 0,
                 0, 0, 1, 0.95
         );
 
         modules = new SwerveModule[] {
-                new SwerveModule(map, motor_names[0], servo_names[0], width, length, reset_modules),
-                new SwerveModule(map, motor_names[1], servo_names[1], width, -length, reset_modules),
-                new SwerveModule(map, motor_names[2], servo_names[2], -width, -length, reset_modules),
-                new SwerveModule(map, motor_names[3], servo_names[3], -width, length, reset_modules)
+                new SwerveModule(map, motor_names[0], servo_names[0], width, length, reset_modules, telemetry),
+                new SwerveModule(map, motor_names[1], servo_names[1], width, -length, reset_modules, telemetry),
+                new SwerveModule(map, motor_names[2], servo_names[2], -width, -length, reset_modules, telemetry),
+                new SwerveModule(map, motor_names[3], servo_names[3], -width, length, reset_modules, telemetry)
         };
 
         reset_modules = false;
@@ -57,6 +57,18 @@ public class Swerve extends DriveSubsystemBase {
     public void resetEncoder() {
         encoder.reset();
     }
+
+//    public final double getHeadingError() {
+//        double angle = normalize_angle(target_heading - getHeading());
+//        if (Math.abs(angle) < MIN_HEADING_ERROR) {
+//            telemetry.addData("ignored error", true);
+//            return 0;
+//        }
+//        else {
+//            telemetry.addData("not ignored error", false);
+//            return angle;
+//        }
+//    }
 
     public double readEncoderDistance() { // 187/100548 revolutions per tick; circumference = 86pi mm
         return encoder.getPosition() * 187.0 / 100548.0 * Math.PI * 86.0 / 25.4;
@@ -125,6 +137,9 @@ public class Swerve extends DriveSubsystemBase {
     @Override
     public void periodic() {
         base_periodic_loop();
+        for (SwerveModule mod : modules) {
+            mod.print_to_telem();
+        }
     }
 
 }

@@ -7,6 +7,8 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class SwerveModule {
 
     private final MotorEx driving_motor;
@@ -15,24 +17,30 @@ public class SwerveModule {
     private final PIECalculator pieCalculator;
 
     private final double[] turning_vector;
+    private final Telemetry telemetry;
+    private final String motor_name;
 
     private final double min_power = 0.1, max_power = 0.95, max_angular_error = 60;
 
-    public SwerveModule(HardwareMap map, String motor_name, String servo_name, double x, double y, boolean reset) {
-        this(map, motor_name, servo_name, x, y, reset, true);
+    public SwerveModule(HardwareMap map, String motor_name, String servo_name, double x, double y, boolean reset, Telemetry t) {
+        this(map, motor_name, servo_name, x, y, reset, true, t);
     }
 
-    public SwerveModule(HardwareMap map, String motor_name, String servo_name, double x, double y, boolean reset, boolean brake) {
+    public SwerveModule(HardwareMap map, String motor_name, String servo_name, double x, double y, boolean reset, boolean brake, Telemetry t) {
+        telemetry = t;
         // x and y just have to be ratios, they don't have to be in any specific units
         // distance of wheel to center of rotation; positive x is right, positive y is forward
         driving_motor = new MotorEx(map, motor_name);
         angle_motor = new CRServo(map, servo_name);
+        this.motor_name = motor_name;
 
         driving_motor.setInverted(false);
         driving_motor.setZeroPowerBehavior(brake ? Motor.ZeroPowerBehavior.BRAKE : Motor.ZeroPowerBehavior.FLOAT);
         driving_motor.setRunMode(Motor.RunMode.RawPower);
 
         angle_motor.setInverted(false); // we might want to put something in variables to carry information to teleop
+
+        angle_motor.set(0);
         if (reset) {
             driving_motor.stopAndResetEncoder();
         }
@@ -41,7 +49,6 @@ public class SwerveModule {
                 0.02, 1.2, 0.001, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY,
                 0.05, 0.95, 10, 0.25, 5, () -> driving_motor.getCurrentPosition() * 45.0 / 1024 // 8192 ticks per revolution
         );
-        pieCalculator.disable_limiting();
 
         double distance = Math.sqrt(x * x + y * y);
         turning_vector = new double[] { // for turning right
@@ -117,5 +124,10 @@ public class SwerveModule {
 
     public double getTargetAngle() {
         return pieCalculator.getTarget();
+    }
+
+    public void print_to_telem() {
+        telemetry.addLine("angle power " + motor_name + angle_motor.get());
+        telemetry.addLine("expected angle power " + motor_name + pieCalculator.getPower(0));
     }
 }

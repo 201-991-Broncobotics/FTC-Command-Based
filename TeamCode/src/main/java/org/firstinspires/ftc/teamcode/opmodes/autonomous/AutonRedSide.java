@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.DriveAndTurn;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
-@Autonomous(name = "23737 Auton (Red Side)")
+@Autonomous(name = "23737 Auton Old (Red Side)")
 public class AutonRedSide extends CommandOpMode {
     @Override
     public void initialize() {
