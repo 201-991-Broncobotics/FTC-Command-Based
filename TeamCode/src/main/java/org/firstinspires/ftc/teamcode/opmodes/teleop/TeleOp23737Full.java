@@ -25,10 +25,10 @@ public class TeleOp23737Full extends CommandOpMode {
     public void initialize() {
 
         // initialize variables
-        Arm arm = new Arm(hardwareMap);
-        Intake intake = new Intake(hardwareMap);
-        Outtake outtake = new Outtake(hardwareMap);
-        Drone drone = new Drone(hardwareMap);
+        // Arm arm = new Arm(hardwareMap);
+        // Intake intake = new Intake(hardwareMap);
+        // Outtake outtake = new Outtake(hardwareMap);
+        // Drone drone = new Drone(hardwareMap);
         Variables.teleOp = true;
 
         // initialize hardware
@@ -67,10 +67,10 @@ public class TeleOp23737Full extends CommandOpMode {
         // register subsystems. How - Mael
 
         register(driveTrain);
-        register(arm);
-        register(intake);
-        register(outtake);
-        register(drone);
+        // register(arm);
+        // register(intake);
+        // register(outtake);
+        // register(drone);
         // default commands
 
         driveTrain.setDefaultCommand(new TeleOpDrive(
@@ -89,17 +89,17 @@ public class TeleOp23737Full extends CommandOpMode {
         down.whenActive(new InstantCommand(() -> driveTrain.setTargetHeading(180)));
         left.whenActive(new InstantCommand(() -> driveTrain.setTargetHeading(-90)));
         right.whenActive(new InstantCommand(() -> driveTrain.setTargetHeading(90)));
-        larm.whenActive(new InstantCommand(() -> arm.up()));
-        rarm.whenActive(new InstantCommand(() -> arm.down()));
-        larm.whenInactive(new InstantCommand(() -> arm.InactiveArm()));
-        rarm.whenInactive(new InstantCommand(() -> arm.InactiveArm()));
-        lIntake.whenActive(new InstantCommand(() -> intake.suck()));
-        rIntake.whenActive(new InstantCommand(() -> intake.blow()));
-        lIntake.whenInactive(new InstantCommand(() -> intake.InactiveIntake()));
-        rIntake.whenInactive(new InstantCommand(() -> intake.InactiveIntake()));
-        box.whenActive(new InstantCommand(() -> outtake.shootOut()));
-        droneMechanism.whenActive(new InstantCommand(() -> drone.Endgame()));
-        droneMechanism.whenInactive(new InstantCommand(() -> drone.notEndgame()));
+        // larm.whenActive(new InstantCommand(() -> arm.up()));
+        // rarm.whenActive(new InstantCommand(() -> arm.down()));
+        // larm.whenInactive(new InstantCommand(() -> arm.InactiveArm()));
+        // rarm.whenInactive(new InstantCommand(() -> arm.InactiveArm()));
+        // lIntake.whenActive(new InstantCommand(() -> intake.suck()));
+        // rIntake.whenActive(new InstantCommand(() -> intake.blow()));
+        // lIntake.whenInactive(new InstantCommand(() -> intake.InactiveIntake()));
+        // rIntake.whenInactive(new InstantCommand(() -> intake.InactiveIntake()));
+        // box.whenActive(new InstantCommand(() -> outtake.shootOut()));
+        // droneMechanism.whenActive(new InstantCommand(() -> drone.Endgame()));
+        // droneMechanism.whenInactive(new InstantCommand(() -> drone.notEndgame()));
 
         schedule(new RunCommand(() -> {
             telemetry.update();
