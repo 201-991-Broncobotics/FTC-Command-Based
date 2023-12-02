@@ -69,7 +69,7 @@ public class TeleOp23737Full extends CommandOpMode {
         driveTrain.setDefaultCommand(new TeleOpDrive(
                 driveTrain,
                 driver,
-                1, 1, true
+                1, 1, false
         ));
 
         // non default commands

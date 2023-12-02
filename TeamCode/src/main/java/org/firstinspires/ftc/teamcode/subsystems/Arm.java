@@ -36,5 +36,15 @@ public class Arm extends SubsystemBase {
         motor5.setPower(p);
         motor6.setPower(p);
     }
-
+    public void AutonArm() {
+        motor5.setPower(-1);
+        motor6.setPower(-1);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        motor5.setPower(0);
+        motor6.setPower(0);
+    }
 }

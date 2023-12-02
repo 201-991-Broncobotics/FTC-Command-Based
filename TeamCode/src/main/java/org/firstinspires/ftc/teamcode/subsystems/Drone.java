@@ -16,13 +16,13 @@ public class Drone extends SubsystemBase {
         servo2.setPosition(0);
     }
     public void Endgame() {
-        servo2.setPosition(1);
+        servo2.setPosition(-1);
         try {
             Thread.sleep(250);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        servo2.setPosition(-1);
+        servo2.setPosition(1);
         try {
             Thread.sleep(250);
         } catch (InterruptedException e) {
