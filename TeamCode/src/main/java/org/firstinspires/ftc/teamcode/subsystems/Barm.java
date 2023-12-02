@@ -5,7 +5,7 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class Barm extends SubsystemBase {
+public class Barm extends SubsystemBase { //WIP. It's gonna be a better arm mechanism (eventually)
     DcMotor motor10;
     DcMotor motor11;
 public Barm (HardwareMap map) {
