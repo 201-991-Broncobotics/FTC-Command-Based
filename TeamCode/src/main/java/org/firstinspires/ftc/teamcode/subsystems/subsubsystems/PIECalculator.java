@@ -9,7 +9,7 @@ public class PIECalculator {
     private final DoubleSupplier positionSup;
 
     private double integral, previous_time, target_position, last_time, last_manually_targeted_position, previous_power;
-    private boolean enable_limiting = true; // if we want to be bounded by min/max position. Otherwise we only do PID
+    private boolean enable_limiting = true; // if we want to be bounded by min/max position. Otherwise we only do PI
 
     public PIECalculator(double kP, double kE, double kI, double minPosition, double maxPosition,
                          double minPower, double maxPower, double acceleration, double calibration_time,
