@@ -20,7 +20,7 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
     private final boolean invert_imu;
     private double imu_zero, last_time, target_heading;
 
-    private double last_translation_time, target_x, target_y;
+    private double last_translation_time, delta_x, delta_y;
 
     private final double[] pose;
     // x, y, theta; for theta, 0 means straight ahead, positive angle means rotated clockwise in degrees
@@ -114,20 +114,20 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
         last_translation_time = 0;
         pose[0] = x;
         pose[1] = y;
-        target_x = x;
-        target_y = y;
+        delta_x = x;
+        delta_y = y;
     }
 
     public final void setTargetPosition(double x, double y) {
         last_translation_time = 0;
-        target_x = x;
-        target_y = y;
+        delta_x = x;
+        delta_y = y;
     }
 
     public final void resetTargetPosition() {
         last_translation_time = System.currentTimeMillis() / 1000.0;
-        target_x = pose[0];
-        target_y = pose[1];
+        delta_x = pose[0];
+        delta_y = pose[1];
     }
 
     public final void resetTargets() {
@@ -154,11 +154,11 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
 
     public final double getPositionError() {
         return Math.sqrt(
-                (target_x - pose[0]) * (target_x - pose[0]) + (target_y - pose[1]) * (target_y - pose[1])
+                (delta_x - pose[0]) * (delta_y - pose[0]) + (delta_y - pose[1]) * (delta_y - pose[1])
         );
     }
 
-    public final void drive(double strafe_factor, double forward_factor, double turning_factor, double damping) {
+    public final void driveB(double strafe_factor, double forward_factor, double turning_factor, double damping) {
         drive(strafe_factor, forward_factor, turning_factor, fieldCentric, damping);
     }
 
@@ -187,12 +187,12 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
 
         if (Math.abs(distance_factor) < 0.01) {
             if (System.currentTimeMillis() / 1000.0 - last_translation_time < position_calibration_time) {
-                target_x = pose[0];
-                target_y = pose[1];
+                delta_x = pose[0];
+                delta_y = pose[1];
             } else {
                 Translation2d position_error = new Translation2d(
-                        target_x - pose[0],
-                        target_y - pose[1]
+                        delta_x - pose[0],
+                        delta_y - pose[1]
                 );
                 position_error = position_error.times(position_p);
                 distance_factor = Math.min(position_error.getNorm(), max_position_correction_power);
@@ -200,8 +200,8 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
                 offset = vectorToAngle(position_error.getX(), position_error.getY());
             }
         } else {
-            target_x = pose[0];
-            target_y = pose[1];
+            delta_x = pose[0];
+            delta_y = pose[1];
             last_time = System.currentTimeMillis() / 1000.0;
         }
 

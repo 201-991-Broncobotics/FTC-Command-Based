@@ -52,9 +52,9 @@ public class TeleOpDrive extends CommandBase {
             if (rx * rx + ry * ry > trigger_deadzone) {
                 driveTrain.setTargetHeading(vectorToAngle(rx, ry));
             }
-            driveTrain.drive(lsx.getAsDouble(), lsy.getAsDouble(), turning.getAsDouble(), absolute_damping.getAsDouble());
+            driveTrain.driveB(lsx.getAsDouble(), lsy.getAsDouble(), turning.getAsDouble(), absolute_damping.getAsDouble());
         } else {
-            driveTrain.drive(lsx.getAsDouble(), lsy.getAsDouble(), rsx.getAsDouble(), damping.getAsDouble());
+            driveTrain.driveB(lsx.getAsDouble(), lsy.getAsDouble(), rsx.getAsDouble(), damping.getAsDouble());
         }
     }
 

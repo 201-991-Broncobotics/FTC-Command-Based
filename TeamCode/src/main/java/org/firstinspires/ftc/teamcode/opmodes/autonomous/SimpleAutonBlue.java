@@ -20,26 +20,22 @@ public class SimpleAutonBlue extends CommandOpMode {
 
         Variables.teleOp = false;
 
-    }
-    public void Run() {
-        DriveSubsystemBase driveTrain = new Swerve(hardwareMap, telemetry,
-                new String[]{ // single swerve module lmao
+        Swerve driveTrain = new Swerve(hardwareMap, telemetry,
+                new String[] { // single swerve module lmao
                         "rfm", "rbm", "lbm", "lfm"
-                }, new String[]{
+                }, new String[] {
                 "rfs", "rbs", "lbs", "lfs"
         }, 12.913386, 9.133858, true,
                 RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP,
                 "encoder"
         );
-        driveTrain.power_motors(1, 1, 1);
         register(driveTrain);
-
         schedule(new SequentialCommandGroup(
-                new InstantCommand(this::waitForStart),
-                new DriveAndTurn(driveTrain, 0, 1.5, 0),
-                new DriveAndTurn(driveTrain, -30, 0, 0)
+                new SwerveDriveCommand(driveTrain,0 , 2, 0),
+                new SwerveDriveCommand(driveTrain,-30,0,-0)
         ));
+
 
 
     }

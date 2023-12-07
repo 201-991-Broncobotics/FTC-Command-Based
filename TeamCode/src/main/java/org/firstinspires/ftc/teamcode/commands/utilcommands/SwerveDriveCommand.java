@@ -24,7 +24,7 @@ class angleModules extends CommandBase {
     private final Swerve driveTrain;
     private final double target_angle;
 
-    private final double module_tolerance = 12; // degrees
+    private final double module_tolerance = 5; // degrees
 
     private double target_module_angles;
 
@@ -75,8 +75,8 @@ class driveDistance extends CommandBase {
         addRequirements(driveTrain);
 
         this.target_magnitude = Math.sqrt(delta_x * delta_x + delta_y * delta_y) - position_tolerance;
-        this.delta_x = delta_x / target_magnitude;
-        this.delta_y = delta_y / target_magnitude;
+        this.delta_x = delta_x * target_magnitude;
+        this.delta_y = delta_y * target_magnitude;
     }
 
     @Override
@@ -125,7 +125,7 @@ class turnSwerve extends CommandBase {
 
     @Override
     public void execute() {
-        driveTrain.drive(0, 0, 0, false, slowdown);
+        driveTrain.drive(0, 0, 0, true, slowdown);
     }
 
     @Override

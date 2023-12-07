@@ -1,18 +1,16 @@
 package org.firstinspires.ftc.teamcode.opmodes.autonomous;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import org.firstinspires.ftc.teamcode.Variables;
-import org.firstinspires.ftc.teamcode.commands.utilcommands.DriveAndTurn;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.SwerveDriveCommand;
+import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
-import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 
-@Autonomous(name = "Auton Simple - Red")
-public class SimpleAutonRed extends CommandOpMode {
+@Autonomous(name = "Mael Tests Dumb Ideas")
+public class AutonTest extends CommandOpMode {
     @Override
     public void initialize() {
 
@@ -28,16 +26,6 @@ public class SimpleAutonRed extends CommandOpMode {
                 RevHubOrientationOnRobot.UsbFacingDirection.UP,
                 "encoder"
         );
-        driveTrain.power_motors(1, 1, 1);
-        driveTrain.changeXY(0,2);
-        register(driveTrain);
-
-        schedule(new SwerveDriveCommand(
-                driveTrain,0,2,0
-        ));
-        schedule(new SwerveDriveCommand(
-                driveTrain, -30, 0, -0
-        ));
     }
-}
+    }
 

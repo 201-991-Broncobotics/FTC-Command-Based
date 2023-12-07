@@ -13,7 +13,7 @@ public class Drone extends SubsystemBase {
         servo2.setPosition(0);
     }
     public void notEndgame() {
-        servo2.setPosition(0);
+        servo2.setPosition(0.5);
     }
     public void Endgame() {
         servo2.setPosition(-1);

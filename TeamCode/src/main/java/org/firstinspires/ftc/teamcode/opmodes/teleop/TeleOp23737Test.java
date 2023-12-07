@@ -11,39 +11,35 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.defaultcommands.TeleOpDrive;
-import org.firstinspires.ftc.teamcode.subsystems.Arm;
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.Swerve;
-import org.firstinspires.ftc.teamcode.subsystems.Outtake;
-import org.firstinspires.ftc.teamcode.subsystems.Drone;
+import org.firstinspires.ftc.teamcode.subsystems.*;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 
-@TeleOp(name = "TeleOp 23737 - Old")
-public class TeleOp23737OLD extends CommandOpMode {
+@TeleOp(name = "TeleOp 23737 - Test")
+public class TeleOp23737Test extends CommandOpMode {
 
     @Override
     public void initialize() {
 
         // initialize variables
-        Arm arm = new Arm(hardwareMap);
-        Intake intake = new Intake(hardwareMap);
-        Outtake outtake = new Outtake(hardwareMap);
-        Drone drone = new Drone(hardwareMap);
+
         Variables.teleOp = true;
 
         // initialize hardware
+        Arm arm = new Arm(hardwareMap);
+        Drone drone = new Drone(hardwareMap);
+        Claw claw = new Claw(hardwareMap);
 
 
 
         DriveSubsystemBase driveTrain = new Swerve(hardwareMap, telemetry,
-            new String[] { // single swerve module lmao
-                "rfm", "rbm", "lbm", "lfm"
-            }, new String[] {
+                new String[] { // single swerve module lmao
+                        "rfm", "rbm", "lbm", "lfm"
+                }, new String[] {
                 "rfs", "rbs", "lbs", "lfs"
-            }, 12.913386, 9.133858, true,
-            RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-            RevHubOrientationOnRobot.UsbFacingDirection.UP,
-            "encoder"
+        },14.173228 , 14.803150, true,
+                RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP,
+                "encoder"
         );
 
         GamepadEx driver = new GamepadEx(gamepad1);
@@ -59,24 +55,22 @@ public class TeleOp23737OLD extends CommandOpMode {
         Trigger right = new Trigger(() -> driver.getButton(GamepadKeys.Button.DPAD_RIGHT));
         Trigger larm = new Trigger(() -> operator.getButton(GamepadKeys.Button.X));
         Trigger rarm = new Trigger(() -> operator.getButton(GamepadKeys.Button.B));
-        Trigger lIntake = new Trigger(() -> operator.getButton(GamepadKeys.Button.LEFT_BUMPER));
-        Trigger rIntake = new Trigger(() -> operator.getButton(GamepadKeys.Button.RIGHT_BUMPER));
-        Trigger box = new Trigger(() -> operator.getButton(GamepadKeys.Button.A));
         Trigger droneMechanism = new Trigger(() -> operator.getButton(GamepadKeys.Button.DPAD_LEFT));
+        Trigger closeClaw = new Trigger(() -> operator.getButton(GamepadKeys.Button.LEFT_BUMPER));
+        Trigger openClaw = new Trigger(() -> operator.getButton(GamepadKeys.Button.RIGHT_BUMPER));
 
-        // register subsystems. How - Mael
+        // register subsystems.
 
         register(driveTrain);
         register(arm);
-        register(intake);
-        register(outtake);
         register(drone);
+        register(claw);
         // default commands
 
         driveTrain.setDefaultCommand(new TeleOpDrive(
-            driveTrain,
-            driver,
-            1, 1, false
+                driveTrain,
+                driver,
+                1, 1, false
         ));
 
         // non default commands
@@ -89,21 +83,18 @@ public class TeleOp23737OLD extends CommandOpMode {
         down.whenActive(new InstantCommand(() -> driveTrain.setTargetHeading(180)));
         left.whenActive(new InstantCommand(() -> driveTrain.setTargetHeading(-90)));
         right.whenActive(new InstantCommand(() -> driveTrain.setTargetHeading(90)));
-        larm.whenActive(new InstantCommand(() -> arm.up()));
-        rarm.whenActive(new InstantCommand(() -> arm.down()));
-        larm.whenInactive(new InstantCommand(() -> arm.InactiveArm()));
-        rarm.whenInactive(new InstantCommand(() -> arm.InactiveArm()));
-        lIntake.whenActive(new InstantCommand(() -> intake.suck()));
-        rIntake.whenActive(new InstantCommand(() -> intake.blow()));
-        lIntake.whenInactive(new InstantCommand(() -> intake.InactiveIntake()));
-        rIntake.whenInactive(new InstantCommand(() -> intake.InactiveIntake()));
-        box.whenActive(new InstantCommand(() -> outtake.shootOut()));
-        droneMechanism.whenActive(new InstantCommand(() -> drone.Endgame()));
-        droneMechanism.whenInactive(new InstantCommand(() -> drone.notEndgame()));
+        larm.whenActive(new InstantCommand(arm::up));
+        rarm.whenActive(new InstantCommand(arm::down));
+        larm.whenInactive(new InstantCommand(arm::InactiveArm));
+        rarm.whenInactive(new InstantCommand(arm::InactiveArm));
+        droneMechanism.whenActive(new InstantCommand(drone::Endgame));
+        droneMechanism.whenInactive(new InstantCommand(drone::notEndgame));
+        closeClaw.whenActive(new InstantCommand(claw::Close));
+        closeClaw.whenInactive(new InstantCommand(claw::InactiveClaw));
+        openClaw.whenActive(new InstantCommand(claw::Open));
+        openClaw.whenInactive(new InstantCommand(claw::InactiveClaw));
 
-        schedule(new RunCommand(() -> {
-            telemetry.update();
-        }));
+        schedule(new RunCommand(() -> telemetry.update()));
 
 
     }
