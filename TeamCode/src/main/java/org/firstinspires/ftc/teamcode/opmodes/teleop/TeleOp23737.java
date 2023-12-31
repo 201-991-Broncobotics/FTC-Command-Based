@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.commands.defaultcommands.TeleOpDrive;
 import org.firstinspires.ftc.teamcode.subsystems.*;
 import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 
-@TeleOp(name = "TeleOp 23737 - Test")
-public class TeleOp23737Test extends CommandOpMode {
+@TeleOp(name = "TeleOp 23737")
+public class TeleOp23737 extends CommandOpMode {
 
     @Override
     public void initialize() {
@@ -36,7 +36,7 @@ public class TeleOp23737Test extends CommandOpMode {
                         "rfm", "rbm", "lbm", "lfm"
                 }, new String[] {
                 "rfs", "rbs", "lbs", "lfs"
-        },14.173228 , 14.803150, true,
+        }, 12.913386, 9.133858, true,
                 RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP,
                 "encoder"
@@ -58,8 +58,7 @@ public class TeleOp23737Test extends CommandOpMode {
         Trigger droneMechanism = new Trigger(() -> operator.getButton(GamepadKeys.Button.DPAD_LEFT));
         Trigger closeClaw = new Trigger(() -> operator.getButton(GamepadKeys.Button.LEFT_BUMPER));
         Trigger openClaw = new Trigger(() -> operator.getButton(GamepadKeys.Button.RIGHT_BUMPER));
-
-        // register subsystems.
+        // register subsystems. How - Mael
 
         register(driveTrain);
         register(arm);

@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.commands.utilcommands.Wait;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 
 @Autonomous(name = "Auton 23737 - Shaan's Attempt")
-public class Auton23737 extends CommandOpMode {
+public class Shaanton extends CommandOpMode {
 
     @Override
     public void initialize() {
