@@ -1,12 +1,16 @@
 package org.firstinspires.ftc.teamcode.opmodes.autonomous;
 
+import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
+import org.firstinspires.ftc.teamcode.commands.utilcommands.SwerveDriveCommand;
+import org.firstinspires.ftc.teamcode.subsystems.Huskylens;
 import org.firstinspires.ftc.teamcode.Variables;
+import org.firstinspires.ftc.teamcode.subsystems.DSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
-import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 
 @Autonomous(name = "Mael Tests Dumb Ideas")
 public class AutonTesting extends CommandOpMode {
@@ -14,8 +18,10 @@ public class AutonTesting extends CommandOpMode {
     public void initialize() {
 
         Variables.teleOp = false;
+        DSensor dsensor = new DSensor(hardwareMap);
+        Huskylens huskylens = new Huskylens(hardwareMap);
 
-        DriveSubsystemBase driveTrain = new Swerve(hardwareMap, telemetry,
+        Swerve driveTrain = new Swerve(hardwareMap, telemetry,
                 new String[] { // single swerve module lmao
                         "rfm", "rbm", "lbm", "lfm"
                 }, new String[] {
@@ -25,6 +31,22 @@ public class AutonTesting extends CommandOpMode {
                 RevHubOrientationOnRobot.UsbFacingDirection.UP,
                 "encoder"
         );
+        register(driveTrain);
+        register(dsensor);
+        register(huskylens);
+
+        schedule(new SequentialCommandGroup(
+                new InstantCommand(() -> {
+                    telemetry.addLine("Waiting for Start...");
+                    telemetry.update();
+                    waitForStart();
+                    huskylens.initCamera(true);
+                    telemetry.addLine("Huskylens Initialized");
+                    telemetry.addLine("Moving Towards the Center");
+                    telemetry.update();
+                })
+
+        ));
     }
     }
 

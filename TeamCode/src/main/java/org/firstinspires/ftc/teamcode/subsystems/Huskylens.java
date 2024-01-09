@@ -55,43 +55,40 @@ public class Huskylens extends SubsystemBase {
             telemetry.update();
         }
     }
-    public void findTag(double tagOneLength, double tagTwoLength, double tagThreeLength,
-                        double tagFourLength, double tagFiveLength, boolean tagOneFound,
-                        boolean tagTwoFound, boolean tagThreeFound, boolean tagFourFound,
-                        boolean tagFiveFound){
+    public void findTag(){
         camera.selectAlgorithm(HuskyLens.Algorithm.TAG_RECOGNITION);
-        HuskyLens.Block[] tagOne = camera.blocks(3);
-        HuskyLens.Block[] tagTwo = camera.blocks(4);
-        HuskyLens.Block[] tagThree = camera.blocks(5);
-        HuskyLens.Block[] tagFour = camera.blocks(6);
-        HuskyLens.Block[] tagFive = camera.blocks(7);
-        tagOneLength = tagOne.length;
-        tagTwoLength = tagTwo.length;
-        tagThreeLength = tagThree.length;
-        tagFourLength = tagFour.length;
-        tagFiveLength = tagFive.length;
-        if (tagOneLength > 2){
-            tagOneFound = true;
+        HuskyLens.Block[] tagOne = camera.blocks(1);
+        HuskyLens.Block[] tagTwo = camera.blocks(2);
+        HuskyLens.Block[] tagThree = camera.blocks(3);
+        HuskyLens.Block[] tagFour = camera.blocks(4);
+        HuskyLens.Block[] tagFive = camera.blocks(5);
+        double tagOneLength = tagOne.length;
+        double tagTwoLength = tagTwo.length;
+        double tagThreeLength = tagThree.length;
+        double tagFourLength = tagFour.length;
+        double tagFiveLength = tagFive.length;
+        if (tagOneLength > 2.5){
+            boolean tagOneFound = true;
             telemetry.addLine("Tag One Found!");
             telemetry.update();
         }
-        if (tagTwoLength > 2){
-            tagTwoFound = true;
+        if (tagTwoLength > 2.5){
+            boolean tagTwoFound = true;
             telemetry.addLine("Tag Two Found!");
             telemetry.update();
         }
-        if (tagThreeLength > 2){
-            tagThreeFound = true;
+        if (tagThreeLength > 2.5){
+            boolean tagThreeFound = true;
             telemetry.addLine("Tag Three Found!");
             telemetry.update();
         }
-        if (tagFourLength > 2){
-            tagFourFound = true;
+        if (tagFourLength > 2.5){
+            boolean tagFourFound = true;
             telemetry.addLine("Tag Four Found!");
             telemetry.update();
         }
-        if (tagFiveLength > 2){
-            tagFiveFound = true;
+        if (tagFiveLength > 2.5){
+            boolean tagFiveFound = true;
             telemetry.addLine("Tag One Found!");
             telemetry.update();
         }

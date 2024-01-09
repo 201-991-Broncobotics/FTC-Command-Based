@@ -8,7 +8,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
+import org.firstinspires.ftc.teamcode.subsystems.Huskylens;
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.commands.defaultcommands.TeleOpDrive;
 import org.firstinspires.ftc.teamcode.subsystems.*;
@@ -28,15 +28,14 @@ public class TeleOp23737 extends CommandOpMode {
         Arm arm = new Arm(hardwareMap);
         Drone drone = new Drone(hardwareMap);
         Claw claw = new Claw(hardwareMap);
-
-
+        Huskylens huskylens = new Huskylens(hardwareMap);
 
         DriveSubsystemBase driveTrain = new Swerve(hardwareMap, telemetry,
                 new String[] { // single swerve module lmao
                         "rfm", "rbm", "lbm", "lfm"
                 }, new String[] {
-                "rfs", "rbs", "lbs", "lfs"
-        }, 12.913386, 9.133858, true,
+                        "rfs", "rbs", "lbs", "lfs" //There were never supposed to be 8 servos?
+        }, 13.858268, 13.228346, true,
                 RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP,
                 "encoder"
@@ -58,12 +57,14 @@ public class TeleOp23737 extends CommandOpMode {
         Trigger droneMechanism = new Trigger(() -> operator.getButton(GamepadKeys.Button.DPAD_LEFT));
         Trigger closeClaw = new Trigger(() -> operator.getButton(GamepadKeys.Button.LEFT_BUMPER));
         Trigger openClaw = new Trigger(() -> operator.getButton(GamepadKeys.Button.RIGHT_BUMPER));
+        Trigger findTag = new Trigger(() -> operator.getButton(GamepadKeys.Button.Y));
         // register subsystems. How - Mael
 
         register(driveTrain);
         register(arm);
         register(drone);
         register(claw);
+        register(huskylens);
         // default commands
 
         driveTrain.setDefaultCommand(new TeleOpDrive(
@@ -92,6 +93,7 @@ public class TeleOp23737 extends CommandOpMode {
         closeClaw.whenInactive(new InstantCommand(claw::InactiveClaw));
         openClaw.whenActive(new InstantCommand(claw::Open));
         openClaw.whenInactive(new InstantCommand(claw::InactiveClaw));
+        findTag.whenActive(new InstantCommand(huskylens::findTag));
 
         schedule(new RunCommand(() -> telemetry.update()));
 

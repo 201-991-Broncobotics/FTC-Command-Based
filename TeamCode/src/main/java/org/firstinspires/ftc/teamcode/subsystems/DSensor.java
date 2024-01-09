@@ -15,7 +15,10 @@ public class DSensor extends SubsystemBase {
     DistanceSensor dSensor3;
     DistanceSensor dSensor4;
     Telemetry telemetry;
-    public double dsResult;
+    public double dsResultOne;
+    public double dsResultTwo;
+    public double dsResultThree;
+    public double dsResultFour;
 
     public DSensor(HardwareMap map) {
         dSensor = map.get(DistanceSensor.class, "dsensorfront");
@@ -24,22 +27,22 @@ public class DSensor extends SubsystemBase {
         dSensor4 = map.get(DistanceSensor.class, "dsensorback");
     }
     public void readFront(){
-        this.dsResult = dSensor.getDistance(DistanceUnit.INCH);
-        telemetry.addData("Distance Sensor Read: ", this.dsResult);
+        dsResultOne = dSensor.getDistance(DistanceUnit.INCH);
+        telemetry.addData("Distance Sensor Read: ", dsResultOne);
     }
     public void readLeft(){
-        this.dsResult = dSensor2.getDistance(DistanceUnit.INCH);
-        telemetry.addData("Distance Sensor Read: ", this.dsResult);
+        dsResultTwo = dSensor2.getDistance(DistanceUnit.INCH);
+        telemetry.addData("Distance Sensor Read: ", dsResultTwo);
         telemetry.update();
     }
     public void readRight(){
-        this.dsResult = dSensor3.getDistance(DistanceUnit.INCH);
-        telemetry.addData("Distance Sensor Read: ", this.dsResult);
+        dsResultThree = dSensor3.getDistance(DistanceUnit.INCH);
+        telemetry.addData("Distance Sensor Read: ", dsResultThree);
         telemetry.update();
     }
     public void readBack(){
-        this.dsResult = dSensor4.getDistance(DistanceUnit.INCH);
-        telemetry.addData("Distance Sensor Read: ", this.dsResult);
+        dsResultFour = dSensor4.getDistance(DistanceUnit.INCH);
+        telemetry.addData("Distance Sensor Read: ", dsResultFour);
         telemetry.update();
     }
     public void turnOff() {
