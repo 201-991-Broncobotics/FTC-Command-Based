@@ -5,7 +5,6 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-
 import org.firstinspires.ftc.teamcode.commands.utilcommands.SwerveDriveCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Huskylens;
 import org.firstinspires.ftc.teamcode.Variables;
@@ -13,7 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystems.DSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 
 @Autonomous(name = "Mael Tests Dumb Ideas")
-public class AutonTesting extends CommandOpMode {
+public class AutonTesting extends CommandOpMode { //Red. I know it doesn't work rn but it SHOULD once Auton code gets fixed ;) (eventually)
     @Override
     public void initialize() {
 
@@ -44,9 +43,7 @@ public class AutonTesting extends CommandOpMode {
                     telemetry.addLine("Huskylens Initialized");
                     telemetry.addLine("Moving Towards the Center");
                     telemetry.update();
-                })
-
-        ));
-    }
+                })));
+                }
     }
 
