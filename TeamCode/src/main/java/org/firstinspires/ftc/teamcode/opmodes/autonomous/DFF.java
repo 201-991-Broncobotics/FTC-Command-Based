@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.commands.utilcommands.SwerveDriveCommand;
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
-import org.firstinspires.ftc.teamcode.subsystems.subsubsystems.DriveSubsystemBase;
 
 @Autonomous(name = "This better work...")
 public class DFF extends CommandOpMode { //DFF = DriveForwardForever; I'm trying to get auton to work :skull:
@@ -27,6 +26,9 @@ public class DFF extends CommandOpMode { //DFF = DriveForwardForever; I'm trying
                 RevHubOrientationOnRobot.UsbFacingDirection.UP,
                 "encoder"
         );
+
+        register(driveTrain);
+
         while (!Variables.teleOp){
             new SwerveDriveCommand(driveTrain,0,80,0);
         }
