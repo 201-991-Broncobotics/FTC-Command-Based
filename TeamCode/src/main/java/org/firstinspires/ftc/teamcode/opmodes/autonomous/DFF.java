@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.commands.utilcommands.SwerveDriveCommand;
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
 
-@Autonomous(name = "This better work...")
+@Autonomous(name = "DFF")
 public class DFF extends CommandOpMode { //DFF = DriveForwardForever; I'm trying to get auton to work :skull:
 
     @Override

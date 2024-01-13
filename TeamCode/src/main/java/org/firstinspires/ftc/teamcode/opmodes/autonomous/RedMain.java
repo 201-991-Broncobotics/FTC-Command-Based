@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Huskylens;
 import org.firstinspires.ftc.teamcode.Variables;
 import org.firstinspires.ftc.teamcode.subsystems.DSensor;
 import org.firstinspires.ftc.teamcode.subsystems.Swerve;
+import org.firstinspires.ftc.teamcode.subsystems.AutonServo;
 
 @Autonomous(name = "Nuh uh (Red)")
 public class RedMain extends CommandOpMode { //Red. I know it doesn't work rn but it SHOULD once Auton code gets fixed ;) (eventually)
@@ -19,6 +20,7 @@ public class RedMain extends CommandOpMode { //Red. I know it doesn't work rn bu
         Variables.teleOp = false;
         DSensor dsensor = new DSensor(hardwareMap);
         Huskylens huskylens = new Huskylens(hardwareMap);
+        AutonServo autonservo = new AutonServo(hardwareMap);
 
         Swerve driveTrain = new Swerve(hardwareMap, telemetry,
                 new String[] { // single swerve module lmao
@@ -30,9 +32,11 @@ public class RedMain extends CommandOpMode { //Red. I know it doesn't work rn bu
                 RevHubOrientationOnRobot.UsbFacingDirection.UP,
                 "encoder"
         );
+
         register(driveTrain);
         register(dsensor);
         register(huskylens);
+        register(autonservo);
 
         schedule(new SequentialCommandGroup(
                 new InstantCommand(() -> {
@@ -62,8 +66,8 @@ public class RedMain extends CommandOpMode { //Red. I know it doesn't work rn bu
                         telemetry.addLine("Huskylens Confirmed Team Prop is to the Front");
                         telemetry.addLine("Leaving Team Prop Here...");
                     });
-                        new SwerveDriveCommand(driveTrain,0,2,0);
-                        new SwerveDriveCommand(driveTrain,0,-10,0);
+                        new InstantCommand(autonservo::duringAuton);
+                        new SwerveDriveCommand(driveTrain,0,-8,0);
                         new SwerveDriveCommand(driveTrain,0,0,90);
                         new SwerveDriveCommand(driveTrain,0,10,0);
                         new InstantCommand(() -> {
@@ -74,13 +78,13 @@ public class RedMain extends CommandOpMode { //Red. I know it doesn't work rn bu
                         });
         } else if (dsensor.comparedDSTwo == 0) {
                     telemetry.addLine("Distance Sensor Found Team Prop to the Left");
+                    new SwerveDriveCommand(driveTrain,0,2,0);
                     new SwerveDriveCommand(driveTrain, 0, 0, -90);
                     telemetry.addLine("Leaving Team Prop Here...");
                     telemetry.update();
-                    new SwerveDriveCommand(driveTrain, 0, 1, 0);
-                    new SwerveDriveCommand(driveTrain, 0, -1, 0);
+                    new InstantCommand(autonservo::duringAuton);
                     new SwerveDriveCommand(driveTrain, 0, 0, 0);
-                    new SwerveDriveCommand(driveTrain, 0, -8, 0);
+                    new SwerveDriveCommand(driveTrain, 0, -10, 0);
                     new SwerveDriveCommand(driveTrain, 0, 0, 90);
                     new SwerveDriveCommand(driveTrain, 0, 10, 0);
                     new InstantCommand(() -> {
@@ -91,13 +95,13 @@ public class RedMain extends CommandOpMode { //Red. I know it doesn't work rn bu
                     });
                 } else if (dsensor.comparedDSThree == 0) {
                     telemetry.addLine("Distance Sensor Found Team Prop to the Right");
+                    new SwerveDriveCommand(driveTrain,0,2,0);
                     new SwerveDriveCommand(driveTrain,0,0,90);
                     telemetry.addLine("Leaving Team Prop Here...");
                     telemetry.update();
-                    new SwerveDriveCommand(driveTrain, 0, 1, 0);
-                    new SwerveDriveCommand(driveTrain, 0, -1, 0);
+                    new InstantCommand(autonservo::duringAuton);
                     new SwerveDriveCommand(driveTrain, 0, 0, 0);
-                    new SwerveDriveCommand(driveTrain, 0, -8, 0);
+                    new SwerveDriveCommand(driveTrain, 0, -10, 0);
                     new SwerveDriveCommand(driveTrain, 0, 0, 90);
                     new SwerveDriveCommand(driveTrain, 0, 10, 0);
                     new InstantCommand(() -> {

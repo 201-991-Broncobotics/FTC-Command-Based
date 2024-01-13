@@ -158,7 +158,7 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
         );
     }
 
-    public final void driveB(double strafe_factor, double forward_factor, double turning_factor, double damping) {
+    public final void drive(double strafe_factor, double forward_factor, double turning_factor, double damping) {
         drive(strafe_factor, forward_factor, turning_factor, fieldCentric, damping);
     }
 

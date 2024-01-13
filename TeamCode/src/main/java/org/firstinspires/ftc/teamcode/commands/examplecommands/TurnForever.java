@@ -21,7 +21,7 @@ public class TurnForever extends CommandBase {
 
     @Override
     public void execute() {
-        driveTrain.driveB(0, 0, 0.5, 1);
+        driveTrain.drive(0, 0, 0.5, 1);
     }
 
     @Override
