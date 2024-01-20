@@ -36,7 +36,7 @@ public class TeleOpTesting extends CommandOpMode {
                         "rfm", "rbm", "lbm", "lfm"
                 }, new String[] {
                 "rfs", "rbs", "lbs", "lfs"
-        },14.173228 , 14.803150, true,
+        },14.803150 , 14.173228, true,
                 RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP,
                 "encoder"

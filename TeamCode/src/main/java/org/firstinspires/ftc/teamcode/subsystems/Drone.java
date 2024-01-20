@@ -2,32 +2,29 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 
 public class Drone extends SubsystemBase {
-    Servo servo2;
+    CRServo servo2;
     public Drone(HardwareMap map) {
-        servo2 = map.get(Servo.class, "drone");
-        servo2.setDirection(Servo.Direction.FORWARD);
-        servo2.setPosition(0);
+        servo2 = map.get(CRServo.class, "drone");
+        servo2.setDirection(CRServo.Direction.FORWARD);
+    }
+    public void holup() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
     public void notEndgame() {
-        servo2.setPosition(0.5);
+        servo2.setPower(0);
     }
     public void Endgame() {
-        servo2.setPosition(-1);
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        servo2.setPosition(1);
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        servo2.setPosition(0);
+        servo2.setPower(-1);
+        holup();
+        servo2.setPower(1);
+        holup();
     }
 }

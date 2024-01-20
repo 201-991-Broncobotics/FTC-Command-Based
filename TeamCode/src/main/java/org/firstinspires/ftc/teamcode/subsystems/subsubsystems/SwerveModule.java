@@ -12,11 +12,11 @@ public class SwerveModule {
     private final MotorEx driving_motor;
     private final CRServo angle_motor; // continuous servos are treated as dc motors in code
 
-    private final PIECalculator pieCalculator;
+    private final PIDCalculator pidCalculator;
 
     private final double[] turning_vector;
 
-    private final double min_power = 0.1, max_power = 0.95, max_angular_error = 60;
+    private final double min_power = 0.05, max_power = 0.95, max_angular_error = 60;
 
     public SwerveModule(HardwareMap map, String motor_name, String servo_name, double x, double y, boolean reset) {
         this(map, motor_name, servo_name, x, y, reset, true);
@@ -37,11 +37,12 @@ public class SwerveModule {
             driving_motor.stopAndResetEncoder();
         }
 
-        pieCalculator = new PIECalculator(
-                0.02, 1.2, 0.001, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY,
-                0.05, 0.95, 10, 0.25, 5, () -> driving_motor.getCurrentPosition() * 45.0 / 1024 // 8192 ticks per revolution
+        pidCalculator = new PIDCalculator(
+                0.0001, 0.00001, 0.01, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY,
+                0.05, 0.95, 10, 0.25, 5,
+                () -> driving_motor.getCurrentPosition() * 40.0 / 1150 // 8192 ticks per revolution
         );
-        pieCalculator.disable_limiting();
+        pidCalculator.disable_limiting();
 
         double distance = Math.sqrt(x * x + y * y);
         turning_vector = new double[] { // for turning right
@@ -51,7 +52,7 @@ public class SwerveModule {
     }
 
     public double getModuleAngle() {
-        return pieCalculator.getCurrentPosition();
+        return pidCalculator.getCurrentPosition();
     }
 
     public double getMagnitude(double strafe, double forward, double turn) {
@@ -87,9 +88,9 @@ public class SwerveModule {
 
         target_angle = getModuleAngle() - normalize_angle(getModuleAngle() - target_angle);
 
-        pieCalculator.setTarget(target_angle);
+        pidCalculator.setTarget(target_angle);
 
-        angle_motor.set(pieCalculator.getPower(0));
+        angle_motor.set(pidCalculator.getPower(0));
 
         driving_motor.set(magnitude);
 
@@ -108,14 +109,14 @@ public class SwerveModule {
 
         target_angle = getModuleAngle() - normalize_angle(getModuleAngle() - target_angle);
 
-        pieCalculator.setTarget(target_angle);
+        pidCalculator.setTarget(target_angle);
 
-        angle_motor.set(pieCalculator.getPower(0));
+        angle_motor.set(pidCalculator.getPower(0));
 
         driving_motor.set(0);
     }
 
     public double getTargetAngle() {
-        return pieCalculator.getTarget();
+        return pidCalculator.getTarget();
     }
 }

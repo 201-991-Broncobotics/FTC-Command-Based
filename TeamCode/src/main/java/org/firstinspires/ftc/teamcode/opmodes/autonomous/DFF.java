@@ -21,7 +21,7 @@ public class DFF extends CommandOpMode { //DFF = DriveForwardForever; I'm trying
                         "rfm", "rbm", "lbm", "lfm"
                 }, new String[] {
                 "rfs", "rbs", "lbs", "lfs" //There were never supposed to be 8 servos?
-        }, 13.858268, 13.228346, true,
+        }, 14.173228, 14.803150, true,
                 RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP,
                 "encoder"
@@ -29,8 +29,8 @@ public class DFF extends CommandOpMode { //DFF = DriveForwardForever; I'm trying
 
         register(driveTrain);
 
-        while (!Variables.teleOp){
-            new SwerveDriveCommand(driveTrain,0,80,0);
-        }
+        waitForStart();
+
+            new SwerveDriveCommand(driveTrain,0,3,0);
     }
 }

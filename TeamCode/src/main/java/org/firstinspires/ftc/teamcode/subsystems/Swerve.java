@@ -37,7 +37,7 @@ public class Swerve extends DriveSubsystemBase {
         super(
                 map, telemetry, invert_imu, logo_direction, usb_direction, 0, 0, 0,
                 true, 0.5,0.1, 0.25,
-                1, 1.05, 0.5, 0,
+                0.05, 1.05, 0.5, 0,
                 0, 0, 1, 0.95
         );
 
@@ -58,8 +58,8 @@ public class Swerve extends DriveSubsystemBase {
         encoder.reset();
     }
 
-    public double readEncoderDistance() { // 187/100548 revolutions per tick; circumference = 86pi mm
-        return encoder.getPosition() * 187.0 / 100548.0 * Math.PI * 86.0 / 25.4;
+    public double readEncoderDistance() { // 187/100548 revolutions per tick; circumference = 98pi mm
+        return encoder.getPosition() * 187.0 / 100548.0 * Math.PI * 96.0 / 25.4;
     }
 
     public void setModuleAngles(double target_angle) {
